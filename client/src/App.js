@@ -1,13 +1,16 @@
-import { Route, Routes } from "react-router-dom";
+import React from 'react';
+import Navbar from './Components/Navbar/Navbar';
+import '/Users/admin/Desktop/Newsletter-Signup/cyf-final-project-starter-kit/client/src/Components/Navbar/Navbar.css';
+import './App.css';
 
-import About from "./pages/About";
-import Home from "./pages/Home";
+const App = () => {
+  return (
+	<div>
+<Navbar />
 
-const App = () => (
-	<Routes>
-		<Route path="/" element={<Home />} />
-		<Route path="/about/this/site" element={<About />} />
-	</Routes>
-);
+	</div>
+
+  );
+};
 
 export default App;
