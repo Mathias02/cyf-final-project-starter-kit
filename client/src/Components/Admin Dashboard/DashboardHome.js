@@ -10,7 +10,7 @@ const DashboardHome = () => {
 <Navbar />
 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '20vh' }}>
       <button style={{ width: '900px', padding: '10px', fontSize: '40px' }}>
-        Hi vlounteer, welcome to your dashboard
+        Hi Admin, welcome to your dashboard
       </button>
     </div>
 
