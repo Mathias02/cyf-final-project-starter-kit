@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./AdminLogin.css";
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
 const AdminLogin = () => {
@@ -44,7 +45,9 @@ const AdminLogin = () => {
         <label>Password:</label>
         <input type="password" value={password} onChange={handlePasswordChange} required />
       </div>
+      <Link to="/admin-dashboard">
       <button type="submit" className="signin-button">Sign In</button>
+      </Link>
     </form>
     </div>
 
