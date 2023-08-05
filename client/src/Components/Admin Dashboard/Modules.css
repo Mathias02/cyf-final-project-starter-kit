@@ -1,12 +1,66 @@
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+/* modules.css */
 
-.form input {
-    width: 150px;
-    height: 30px;
-    margin: 5px;
-}
+/* Styling for the form section */
+.form {
+    margin: 20px auto;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .form input[type="text"],
+  .form input[type="date"] {
+    width: 30%;
+    padding: 8px;
+  }
+
+  .form button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Styling for the modules list table */
+  .table-container {
+    margin: 20px auto;
+    width: 80%;
+  }
+
+  .table th,
+  .table td {
+    text-align: center;
+  }
+
+  /* Styling for the "Edit" and "Delete" buttons */
+  .action-buttons button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .action-buttons button.cancel {
+    background-color: #dc3545;
+  }
+
+  /* Styling for the "Save" button */
+  .save-button button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Additional styling for the search input */
+  .form input[type="text"].search-input {
+    width: 20%;
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
