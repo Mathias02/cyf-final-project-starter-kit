@@ -112,18 +112,21 @@ const Modules = () => {
   return (
     <div>
       <Navbar />
-      <div className="container">
-        <h3>Hello Admin, below you can update modules</h3>
+      <div className="container" style={{ textAlign: 'left', marginRight: '30px' }}>
+        <h3 style={{ marginBottom: '60px' }}>Hello Admin, below you can update modules!</h3>
         <div className='form'>
+        <div className='form' style={{ textAlign: 'left' }}>
           <form onSubmit={insertModule}>
-          <label><h4> Add new module:</h4></label>
+          <h6>Enter new module:</h6>
             <input type='text' placeholder='Enter Module Name' name='moduleName' onChange={(e) => {
               setModuleName(e.target.value);
             }} />
+            <label htmlFor='endDate'>Select Start Date</label>
             <input type='date' placeholder='Enter Start Date' name='startDate' onChange={(e) => {
               setStartDate(e.target.value);
             }} />
-            <input type='date' placeholder='Enter End Date' name='endDate' onChange={(e) => {
+            <label htmlFor='endDate'>Select End Date</label>
+            <input type='date' placeholder='Select End Date' name='endDate' onChange={(e) => {
               setEndDate(e.target.value);
             }} />
             <input type='text' placeholder='Enter Cohort Name' name='cohortName' onChange={(e) => {
@@ -131,9 +134,13 @@ const Modules = () => {
             }} />
             <button type='submit'>Submit</button>
           </form>
+          </div>
         </div>
+
+        {/* TABLE STARTS HERE */}
         <div className="table-container">
           <div className="filter-container">
+
             {/* Search input for filtering by cohort */}
             <input
               type="text"
@@ -141,12 +148,14 @@ const Modules = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+
             {/* Filter and Reset buttons */}
             <div className="button-container">
               <button onClick={handleFilterByCohort}>Filter</button>
               <button onClick={handleResetFilter}>Reset</button>
             </div>
           </div>
+
           {/* Modules list table */}
           <table className="table">
             <thead>

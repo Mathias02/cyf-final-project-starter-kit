@@ -20,7 +20,7 @@ td {
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items:start;
   justify-content: center;
   min-height: 100vh;
   margin-top: 40px;
@@ -38,13 +38,14 @@ td {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .form input {
-  width: 150px;
+  width: 120px;
   height: 40px;
   margin: 10px;
+  font-size: 12px;
 }
 
 /* Right section */
@@ -62,7 +63,7 @@ td {
 .filter-container {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .button-container {
