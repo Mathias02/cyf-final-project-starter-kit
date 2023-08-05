@@ -13,6 +13,12 @@ const Modules = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [cohortName, setCohortName] = useState("");
+  const [modules, setModules] = useState([]); // Existing state for modules
+  const [editingModuleId, setEditingModuleId] = useState(null); // Add this line
+  const [editedModuleName, setEditedModuleName] = useState(""); // Add this line
+  const [editedStartDate, setEditedStartDate] = useState(""); // Add this line
+  const [editedEndDate, setEditedEndDate] = useState(""); // Add this line
+  const [editedCohortName, setEditedCohortName] = useState("");
 
   // SUBMIT FUNCTION
   const insertModule = async () => {
@@ -53,24 +59,53 @@ const Modules = () => {
     };
 
     // DELETE FUNCTION
-  const deleteModule = async (moduleId) => {
+
+  // Handle the delete click
+  const handleDeleteClick = async (moduleId) => {
     try {
       await axios.delete(`/api/delete/${moduleId}`);
-      setModules(modules.filter((module) => module.id !== moduleId));
+      fetchModules(); // Fetch modules again after deletion
     } catch (error) {
       console.error('Error deleting module:', error);
     }
   };
 
+  //PUT FUNCTION
+
+  // Handle the edit click
+  const handleEditClick = (moduleId) => {
+    setEditingModuleId(moduleId);
+  };
+
+  // Handle the save click (update module)
+  const handleSaveClick = async (moduleId) => {
+    try {
+      // Get the updated values from the state
+      const updatedModule = {
+        moduleName: editedModuleName,
+        startDate: moment(editedStartDate).format('YYYY-MM-DD'),
+        endDate: moment(editedEndDate).format('YYYY-MM-DD'),
+        cohort: editedCohortName,
+      };
+
+      // Send the PUT request to update the module
+      await axios.put(`/api/update/${moduleId}`, updatedModule);
+      // Reset the editingModuleId and fetch modules again after updating
+      setEditingModuleId(null);
+      fetchModules();
+    } catch (error) {
+      console.error('Error updating module:', error);
+    }
+  };
+
     return (
       <div>
-      <Navbar />
-      <h3>Hello Admin, below you can update modules</h3>
+      {/* ... (previous code) ... */}
       <div className='form'>
         {/* ... Input fields and submit button ... */}
 
         {/* Modules List Table */}
-        <div style={{ margin: 'auto', width: '50%' }}>
+        <div style={{ margin: 'auto', width: '80%' }}>
           <h2>Modules List</h2>
           <table className="table">
             <thead>
@@ -85,19 +120,68 @@ const Modules = () => {
             <tbody>
               {modules.map((module) => (
                 <tr key={module.id}>
-                  <td>{module.modulename}</td>
-                  <td>{module.startdate}</td>
-                  <td>{module.enddate}</td>
-                  <td>{module.cohort}</td>
                   <td>
-                    <button onClick={() => deleteModule(module.id)}>Delete</button>
+                    {module.id === editingModuleId ? (
+                      <input
+                        type="text"
+                        value={editedModuleName}
+                        onChange={(e) => setEditedModuleName(e.target.value)}
+                      />
+                    ) : (
+                      module.modulename
+                    )}
+                  </td>
+                  <td>
+                    {module.id === editingModuleId ? (
+                      <input
+                        type="date"
+                        value={editedStartDate}
+                        onChange={(e) => setEditedStartDate(e.target.value)}
+                      />
+                    ) : (
+                      moment(module.startdate).format('YYYY-MM-DD')
+                    )}
+                  </td>
+                  <td>
+                    {module.id === editingModuleId ? (
+                      <input
+                        type="date"
+                        value={editedEndDate}
+                        onChange={(e) => setEditedEndDate(e.target.value)}
+                      />
+                    ) : (
+                      moment(module.enddate).format('YYYY-MM-DD')
+                    )}
+                  </td>
+                  <td>
+                    {module.id === editingModuleId ? (
+                      <input
+                        type="text"
+                        value={editedCohortName}
+                        onChange={(e) => setEditedCohortName(e.target.value)}
+                      />
+                    ) : (
+                      module.cohort
+                    )}
+                  </td>
+                  <td>
+                    {module.id === editingModuleId ? (
+                      <div>
+                        <button onClick={() => handleSaveClick(module.id)}>Save</button>
+                        <button onClick={() => setEditingModuleId(null)}>Cancel</button>
+                      </div>
+                    ) : (
+                      <>
+                        <button onClick={() => handleEditClick(module.id)}>Edit</button>
+                        <button onClick={() => handleDeleteClick(module.id)}>Delete</button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
       </div>
       <Footer />
     </div>
