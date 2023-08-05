@@ -1,28 +1,111 @@
+/* modules.css */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Adjust the width of the table cells */
+td {
+  max-width: 250px; /* Adjust the max-width to your desired value */
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+/* Main container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top */
+  min-height: 100vh;
+  padding-bottom: 100px; /* Add padding at the bottom to prevent data from getting hidden */
+}
+
+/* Left section */
+.left-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form input {
+  width: 250px;
+  height: 40px;
+  margin: 10px;
+}
+
+/* Right section */
+.right-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 20px;
+}
+
+.table-container {
+  margin: 20px;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  margin-left: 10px;
+}
+
+/* Style for all buttons */
+button,
+.button-container button {
+  border-radius: 8%; /* Set 8% border radius for all buttons */
+}
+
+/* New styles for the table */
+table {
+  width: 100%;
+  table-layout: fixed; /* Use fixed table layout to ensure even cell width */
+}
+
+/* Center the table */
+.table-container table {
+  width: auto;
+}
+
+/* Footer styles */
 footer {
-    background-color: #464647;
-    padding: 20px;
-    text-align: center;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-  }
+  background-color: #464647;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100px; /* Adjust the height to your desired value */
+}
 
-  p {
-    color: white;
-  }
+p {
+  color: white;
+}
 
+.footer-links {
+  margin-bottom: 10px;
+}
 
-  .footer-links {
-    margin-bottom: 10px;
-  }
+.footer-links a {
+  margin-right: 10px;
+  color: white;
+  text-decoration: none;
+}
 
-  .footer-links a {
-    margin-right: 10px;
-    color: white;
-    text-decoration: none;
-  }
-
-  .footer-links a:hover {
-    color: #d33a3a;
-  }
+.footer-links a:hover {
+  color: #d33a3a;
+}

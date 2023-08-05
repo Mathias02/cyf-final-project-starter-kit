@@ -1,3 +1,4 @@
+/* Modules.js */
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
@@ -111,114 +112,117 @@ const Modules = () => {
   return (
     <div>
       <Navbar />
-      <h3>Hello Admin, below you can update modules</h3>
-      <div className='form'>
-        <form onSubmit={insertModule}>
-          <input type='text' placeholder='Enter Module Name' name='moduleName' onChange={(e) => {
-            setModuleName(e.target.value);
-          }} />
-          <input type='date' placeholder='Enter Start Date' name='startDate' onChange={(e) => {
-            setStartDate(e.target.value);
-          }} />
-          <input type='date' placeholder='Enter End Date' name='endDate' onChange={(e) => {
-            setEndDate(e.target.value);
-          }} />
-          <input type='text' placeholder='Enter Cohort Name' name='cohortName' onChange={(e) => {
-            setCohortName(e.target.value);
-          }} />
-          <button type='submit'>Submit</button>
-        </form>
-        
-      </div>
-      <div style={{ margin: 'auto', width: '80%' }}>
-        <h2>Modules List</h2>
-        <div>
-          {/* Search input for filtering by cohort */}
-          <input
-            type="text"
-            placeholder="Filter by Cohort"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          {/* Filter and Reset buttons */}
-          <button onClick={handleFilterByCohort}>Filter</button>
-          <button onClick={handleResetFilter}>Reset</button>
+      <div className="container">
+        <h3>Hello Admin, below you can update modules</h3>
+        <div className='form'>
+          <form onSubmit={insertModule}>
+          <label><h4> Add new module:</h4></label>
+            <input type='text' placeholder='Enter Module Name' name='moduleName' onChange={(e) => {
+              setModuleName(e.target.value);
+            }} />
+            <input type='date' placeholder='Enter Start Date' name='startDate' onChange={(e) => {
+              setStartDate(e.target.value);
+            }} />
+            <input type='date' placeholder='Enter End Date' name='endDate' onChange={(e) => {
+              setEndDate(e.target.value);
+            }} />
+            <input type='text' placeholder='Enter Cohort Name' name='cohortName' onChange={(e) => {
+              setCohortName(e.target.value);
+            }} />
+            <button type='submit'>Submit</button>
+          </form>
         </div>
-        {/* Modules list table */}
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Module Name</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Cohort</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredModules.map((module) => (
-              <tr key={module.id}>
-                <td>
-                  {module.id === editingModuleId ? (
-                    <input
-                      type="text"
-                      value={editedModuleName}
-                      onChange={(e) => setEditedModuleName(e.target.value)}
-                    />
-                  ) : (
-                    module.modulename
-                  )}
-                </td>
-                <td>
-                  {module.id === editingModuleId ? (
-                    <input
-                      type="date"
-                      value={editedStartDate}
-                      onChange={(e) => setEditedStartDate(e.target.value)}
-                    />
-                  ) : (
-                    moment(module.startdate).format('YYYY-MM-DD')
-                  )}
-                </td>
-                <td>
-                  {module.id === editingModuleId ? (
-                    <input
-                      type="date"
-                      value={editedEndDate}
-                      onChange={(e) => setEditedEndDate(e.target.value)}
-                    />
-                  ) : (
-                    moment(module.enddate).format('YYYY-MM-DD')
-                  )}
-                </td>
-                <td>
-                  {module.id === editingModuleId ? (
-                    <input
-                      type="text"
-                      value={editedCohortName}
-                      onChange={(e) => setEditedCohortName(e.target.value)}
-                    />
-                  ) : (
-                    module.cohort
-                  )}
-                </td>
-                <td>
-                  {module.id === editingModuleId ? (
-                    <div>
-                      <button onClick={() => handleSaveClick(module.id)}>Save</button>
-                      <button onClick={() => setEditingModuleId(null)}>Cancel</button>
-                    </div>
-                  ) : (
-                    <>
-                      <button onClick={() => handleEditClick(module.id)}>Edit</button>
-                      <button onClick={() => handleDeleteClick(module.id)}>Delete</button>
-                    </>
-                  )}
-                </td>
+        <div className="table-container">
+          <div className="filter-container">
+            {/* Search input for filtering by cohort */}
+            <input
+              type="text"
+              placeholder="Filter by Cohort"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            {/* Filter and Reset buttons */}
+            <div className="button-container">
+              <button onClick={handleFilterByCohort}>Filter</button>
+              <button onClick={handleResetFilter}>Reset</button>
+            </div>
+          </div>
+          {/* Modules list table */}
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Module Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Cohort</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredModules.map((module) => (
+                <tr key={module.id}>
+                  <td>
+                    {module.id === editingModuleId ? (
+                      <input
+                        type="text"
+                        value={editedModuleName}
+                        onChange={(e) => setEditedModuleName(e.target.value)}
+                      />
+                    ) : (
+                      module.modulename
+                    )}
+                  </td>
+                  <td>
+                    {module.id === editingModuleId ? (
+                      <input
+                        type="date"
+                        value={editedStartDate}
+                        onChange={(e) => setEditedStartDate(e.target.value)}
+                      />
+                    ) : (
+                      moment(module.startdate).format('YYYY-MM-DD')
+                    )}
+                  </td>
+                  <td>
+                    {module.id === editingModuleId ? (
+                      <input
+                        type="date"
+                        value={editedEndDate}
+                        onChange={(e) => setEditedEndDate(e.target.value)}
+                      />
+                    ) : (
+                      moment(module.enddate).format('YYYY-MM-DD')
+                    )}
+                  </td>
+                  <td>
+                    {module.id === editingModuleId ? (
+                      <input
+                        type="text"
+                        value={editedCohortName}
+                        onChange={(e) => setEditedCohortName(e.target.value)}
+                      />
+                    ) : (
+                      module.cohort
+                    )}
+                  </td>
+                  <td>
+                    {module.id === editingModuleId ? (
+                      <div>
+                        <button onClick={() => handleSaveClick(module.id)}>Save</button>
+                        <button onClick={() => setEditingModuleId(null)}>Cancel</button>
+                      </div>
+                    ) : (
+                      <>
+                        <button onClick={() => handleEditClick(module.id)}>Edit</button>
+                        <button onClick={() => handleDeleteClick(module.id)}>Delete</button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <Footer />
     </div>

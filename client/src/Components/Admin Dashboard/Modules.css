@@ -1,66 +1,91 @@
+h3 {
+  margin-top: 40px;
+}
+
+
 /* modules.css */
+body {
+  margin: 0;
+  padding: 0;
+}
 
-/* Styling for the form section */
+/* Adjust the width of the table cells */
+td {
+  max-width: 250px;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+/* Main container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin-top: 40px;
+}
+
+/* Left section */
+.left-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px;
+}
+
 .form {
-    margin: 20px auto;
-    width: 80%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
 
-  .form input[type="text"],
-  .form input[type="date"] {
-    width: 30%;
-    padding: 8px;
-  }
+.form input {
+  width: 150px;
+  height: 40px;
+  margin: 10px;
+}
 
-  .form button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
+/* Right section */
+.right-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 20px;
+}
 
-  /* Styling for the modules list table */
-  .table-container {
-    margin: 20px auto;
-    width: 80%;
-  }
+.table-container {
+  margin: 20px;
+}
 
-  .table th,
-  .table td {
-    text-align: center;
-  }
+.filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
 
-  /* Styling for the "Edit" and "Delete" buttons */
-  .action-buttons button {
-    padding: 5px 10px;
-    margin-right: 5px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
+.button-container {
+  margin: 15px;
 
-  .action-buttons button.cancel {
-    background-color: #dc3545;
-  }
+}
 
-  /* Styling for the "Save" button */
-  .save-button button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
+/* Style for all buttons */
+button,
+.button-container button {
+  border-radius: 8%; /* Set 8% border radius for all buttons */
+  margin: 5px;
+}
 
-  /* Additional styling for the search input */
-  .form input[type="text"].search-input {
-    width: 20%;
-    padding: 8px;
-    border: 1px solid #ccc;
-  }
+/* New styles for the table */
+table {
+  width: 100%;
+  table-layout: fixed; /* Use fixed table layout to ensure even cell width */
+}
+
+/* Center the table */
+.table-container table {
+  width: auto;
+}
+
+
