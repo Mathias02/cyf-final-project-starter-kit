@@ -1,53 +1,109 @@
-import { Router } from "express";
 import express from "express";
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const app = express();
+import cors from "cors";
 import db from "./db";
 import logger from "./utils/logger";
+import bodyParser from "body-parser";
 
-const router = Router();
-// app.use(express.json());
+const app = express();
 
-//POST
+app.use(express.json());
+app.use(cors());
 
-router.post("/modules", async (req, res) => {
+app.use(bodyParser.urlencoded({extended: true}))
+
+
+
+//GET
+app.get("/get", async (req, res) => {
 	try {
-	  const { title, startDate, endDate, location, cohort } = req.body;
-	  const query = `
-		INSERT INTO modules (title, start_date, end_date, location, cohort)
-		VALUES ($1, $2, $3, $4, $5)
-		RETURNING *`;
-	  const values = [title, startDate, endDate, location, cohort];
-	  const result = await pool.query(query, values);
-	  res.status(201).json(result.rows[0]);
+	const querySelect = `
+		SELECT * from modules`;
+	const result = await db.query(querySelect);
+
+	// Debugging: Log the result to see the retrieved data
+	console.log(result);
+
+	// Send the retrieved data as the response
+	res.json(result.rows);
 	} catch (error) {
-	  logger.error("Error adding module:", error);
-	  res.status(500).json({ error: "Internal Server Error" });
+	logger.error("Error fetching modules:", error);
+	res.status(500).json({ error: "Internal Server Error" });
 	}
   });
 
 
-// router.post("/modules", async (req, res) => {
-// 	const { moduleName, startDate, endDate, cohort } = req.body;
-// 	try {
-// 	  await db(moduleName, startDate, endDate, cohort);
-// 	  res.json({ message: "Data inserted successfully!" });
-// 	} catch (err) {
-// 	  console.error("Error inserting data:", err);
-// 	  res.status(500).json({ error: "Error inserting data." });
-// 	}
-//   });
+//POST
+app.post("/insert", async (req, res) => {
+  try {
 
+const moduleName = req.body.moduleName
+const startDate = req.body.startDate
+const endDate = req.body.endDate
+const cohort = req.body.cohort
 
-router.get("/", (_, res) => {
-  logger.debug("Welcoming everyone...");
-  res.json({ message: "Hello, world!" });
+    const query = `
+      INSERT INTO modules (modulename, startdate, enddate, cohort)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *`;
+    const values = [moduleName, startDate, endDate, cohort];
+    const result = await db.query(query, values);
+
+    // Debugging: Log the result to see if data is being inserted correctly
+    console.log("Inserted Data:", result.rows[0]);
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    logger.error("Error adding module:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
+app.post("/insert", async (req, res) => {
+  try {
 
+const moduleName = req.body.moduleName
+const startDate = req.body.startDate
+const endDate = req.body.endDate
+const cohort = req.body.cohort
 
-app.listen(3036, () => {
-	console.log("Server running on http://localhost:3000");
+    const query = `
+      INSERT INTO modules (modulename, startdate, enddate, cohort)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *`;
+    const values = [moduleName, startDate, endDate, cohort];
+    const result = await db.query(query, values);
+
+    // Debugging: Log the result to see if data is being inserted correctly
+    console.log("Inserted Data:", result.rows[0]);
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    logger.error("Error adding module:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//DELETE
+app.delete("/delete/:id", async (req, res) => {
+	try {
+	const { id } = req.params;
+	const query = `
+		DELETE FROM modules
+		WHERE id = $1`;
+	const result = await db.query(query, [id]);
+	res.status(204).json({ message: "Module deleted successfully" });
+	} catch (error) {
+	logger.error("Error deleting module:", error);
+	res.status(500).json({ error: "Internal Server Error" });
+	}
   });
-export default router;
+
+
+
+
+
+
+
+
+
+export default app;
