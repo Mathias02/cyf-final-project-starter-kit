@@ -1,12 +1,12 @@
-import React from 'react';
-import './Navbar.css'
+import React from "react";
+import "./Navbar.css";
 
 
 
 const Navbar = () => {
 
   const handleEmailButtonClick = () => {
-    window.location.href = 'mailto:recipient@example.com';
+    window.location.href = "mailto:recipient@example.com";
   };
 
   return (
