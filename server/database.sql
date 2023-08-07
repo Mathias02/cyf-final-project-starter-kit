@@ -1,3 +1,5 @@
+CREATE DATABASE cyf;
+
 CREATE TABLE cohorts (
     id SERIAL PRIMARY KEY,
     name VARCHAR(60) NOT NULL
