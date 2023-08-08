@@ -1,16 +1,33 @@
 import express from "express";
+<<<<<<< HEAD
 import cors from "cors";
 import { Router } from "express";
 import db from "./db";
 import logger from "./utils/logger";
 import bodyParser from "body-parser";
+=======
+
+import apiRouter from "./api";
+import config from "./utils/config";
+import {
+	clientRouter,
+	configuredHelmet,
+	configuredMorgan,
+	httpsOnly,
+	logErrors,
+} from "./utils/middleware";
+
+const apiRoot = "/api";
+>>>>>>> 591ad4a (api pasted)
 
 const router = Router();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(configuredHelmet());
+app.use(configuredMorgan());
 
+<<<<<<< HEAD
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -120,9 +137,20 @@ router.delete("/delete/:id", async (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
 	}
   });
+=======
+if (config.production) {
+	app.enable("trust proxy");
+	app.use(httpsOnly());
+}
+>>>>>>> 591ad4a (api pasted)
 
+app.use(apiRoot, apiRouter);
+app.use("/health", (_, res) => res.sendStatus(200));
+app.use(clientRouter(apiRoot));
 
+app.use(logErrors());
 
+<<<<<<< HEAD
 
 
 
@@ -132,3 +160,6 @@ router.delete("/delete/:id", async (req, res) => {
 
 
 export default router;
+=======
+export default app;
+>>>>>>> 591ad4a (api pasted)
