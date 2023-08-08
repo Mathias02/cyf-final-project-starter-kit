@@ -1,4 +1,4 @@
-CREATE DATABASE cyf;
+
 
 CREATE TABLE cohorts (
     id SERIAL PRIMARY KEY,
