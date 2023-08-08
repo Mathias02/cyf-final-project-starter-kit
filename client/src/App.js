@@ -1,14 +1,14 @@
 
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './Components/Home Page/Home';
-import TraineeLogin from './Components/Login/TraineeLogin';
-import AdminLogin from './Components/Login/AdminLogin';
-import TraineeTracker from './Components/Trainee Dashboard/TraineeTracker'
-import Modules from './Components/Admin Dashboard/Modules';
-import TrackProgress from './Components/Admin Dashboard/TrackProgress';
-import DashboardHome from './Components/Admin Dashboard/DashboardHome';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Components/Home Page/Home";
+import TraineeLogin from "./Components/Login/TraineeLogin";
+import AdminLogin from "./Components/Login/AdminLogin";
+import TraineeTracker from "./Components/Trainee Dashboard/TraineeTracker";
+import Modules from "./Components/Admin Dashboard/Modules";
+import TrackProgress from "./Components/Admin Dashboard/TrackProgress";
+import DashboardHome from "./Components/Admin Dashboard/DashboardHome";
 
 
 const App = () => {
