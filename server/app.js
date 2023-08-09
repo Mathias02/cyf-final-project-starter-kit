@@ -1,32 +1,23 @@
+
 import express from "express";
-
-import apiRouter from "./api";
-import config from "./utils/config";
-import {
-	clientRouter,
-	configuredHelmet,
-	configuredMorgan,
-	httpsOnly,
-	logErrors,
-} from "./utils/middleware";
-
-const apiRoot = "/api";
+import db from "./db";
 
 const app = express();
 
-app.use(express.json());
-app.use(configuredHelmet());
-app.use(configuredMorgan());
 
-if (config.production) {
-	app.enable("trust proxy");
-	app.use(httpsOnly());
-}
+// Define the API endpoint to get cohort by GitHub username
+app.get("/api/cohots/github/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const query = "SELECT cohorts.* FROM cohorts JOIN trainees ON cohorts.id = trainees.cohort_id WHERE trainees.github_name = $1";
+    const result = await db.query(query, [username]);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching cohort:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
-app.use(apiRoot, apiRouter);
-app.use("/health", (_, res) => res.sendStatus(200));
-app.use(clientRouter(apiRoot));
-
-app.use(logErrors());
+// Your other endpoints and configurations ...
 
 export default app;
