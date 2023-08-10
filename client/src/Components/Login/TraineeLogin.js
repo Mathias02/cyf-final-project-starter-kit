@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
@@ -5,6 +6,7 @@ import './TraineeLogin.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useState} from 'react';
 import TraineeTracker from '../Trainee Dashboard/TraineeTracker';
+
 
 const TraineeLogin = () => {
   const [username, setUsername] = useState('');
@@ -23,6 +25,7 @@ if(show) {
 }
   return (
     <div>
+
       <Navbar />
       <div className='trainee-login-container'>
         <div className="sign">
@@ -36,6 +39,7 @@ if(show) {
             </form>   
         </div>
       </div>
+
       <Footer />
     </div>
   );

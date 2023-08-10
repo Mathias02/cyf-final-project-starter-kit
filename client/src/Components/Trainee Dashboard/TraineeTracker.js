@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
@@ -26,6 +27,7 @@ const [codewars, setCodewars] = useState([]);
         .then(data => setCodewars(data))
     },[user])
 
+
     return(
         <div className='tracker'>
         <Navbar />
@@ -48,7 +50,7 @@ const [codewars, setCodewars] = useState([]);
             </div>
         <Footer />
         </div>
-    )
-}
+    );
+};
 
 export default TraineeTracker;
