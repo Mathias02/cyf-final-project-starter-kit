@@ -1,25 +1,45 @@
-import React from "react";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
-import "./TraineeLogin.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Link } from "react-router-dom";
+
+import React from 'react';
+import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
+import './TraineeLogin.css'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useState} from 'react';
+import TraineeTracker from '../Trainee Dashboard/TraineeTracker';
+
 
 const TraineeLogin = () => {
+  const [username, setUsername] = useState('');
+  const [show, setShow] = useState(false);
+
+const inputUser = (e) => {
+  e.preventDefault();
+  setUsername(username);
+  setUsername('');
+};
+
+if(show) {
+  return(
+    <TraineeTracker  user={username}/>
+  ) 
+}
   return (
     <div>
-    <Navbar />
-    <div className='traine-login-container'>
-    <div>
-    <img className='signin-logo' src="https://syllabus.codeyourfuture.io/img/logo.png" alt="Your Logo" />
-    </div>
-    <Link to='/trainee-tracker'>
-    <div className="github-sign-in-button" onClick={() => console.log("Sign in with GitHub clicked!")}>
-          <i className="fab fa-github"></i> {/* GitHub icon */}
-          <span>Sign in with GitHub</span>
-    </div>
-    </Link>
-    </div>
+
+      <Navbar />
+      <div className='trainee-login-container'>
+        <div className="sign">
+            <div className="github">
+              <i className="fab fa-github"></i> {/* GitHub icon */}
+                <span>Sign in with GitHub</span>
+            </div>
+            <form className="user_name" onSubmit={inputUser}>
+                <input type="text"  value={username} onChange={e => setUsername(e.target.value)}  className='user' placeholder='GitHub username' required />
+                <input type="submit" className='btn-submit' value="submit" onClick={() => setShow(!show)}  />
+            </form>   
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
