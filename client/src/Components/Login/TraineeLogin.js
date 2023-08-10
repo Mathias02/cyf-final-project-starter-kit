@@ -14,7 +14,7 @@ const inputUser = (e) => {
   e.preventDefault();
   setUsername(username);
   setUsername('');
-}
+};
 
 if(show) {
   return(

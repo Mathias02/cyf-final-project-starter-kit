@@ -24,7 +24,7 @@ const [codewars, setCodewars] = useState([]);
         fetch(`https://www.codewars.com/api/v1/users/${user}`)
         .then(res => res.json())
         .then(data => setCodewars(data))
-    },[])
+    },[user])
 
     return(
         <div className='tracker'>
@@ -40,8 +40,8 @@ const [codewars, setCodewars] = useState([]);
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{entry.total_count}</td>
-                            <td>{codewars.honor}</td>
+                            <td>{entry?.total_count || 'Loading...'}</td>
+                            <td>{codewars?.honor || 'Loading...'}</td>
                         </tr>
                     </tbody>
                 </table>
