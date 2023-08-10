@@ -66,7 +66,7 @@ const TraineeTracker = ({ name }) => {
           </table>
         </div>
 
-<Footer />
+     <Footer />
       </div>
     );
 };
