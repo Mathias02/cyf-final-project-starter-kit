@@ -8,10 +8,9 @@ router.get("/cohorts", async (req, res) => {
 		res.json(result.rows);
 	} catch (error) {
 		logger.error(error);
-		res.status(200).json(error);
-Fatemeh Rahimi this conversation as resolved.
-	};
-});
+    res.status(500).json(error);  // Use 500 error code to represent a server-side error
+  }
+  
 
 router.get("/cohorts/:id", async (req, res) => {
 	const id = req.params.id;
@@ -28,10 +27,10 @@ router.get("/cohorts/:id", async (req, res) => {
 });
 
 router.post("/cohorts", async (req, res) => {
-	const { name, description } = req.body;
+	const { name } = req.body;
 
 	// Check if all required fields are provided
-	if (!name || !description) {
+	if (!name) {
 		return res.status(400).json({ error: "Missing required fields" });
 	}
 
@@ -42,7 +41,7 @@ router.post("/cohorts", async (req, res) => {
 		res.status(201).send();
 	} catch (error) {
 		logger.error(error);
-		res.status(500).json({ error: "Failed to create " });
+		res.status(500).json({ error: "Failed to createc cohorts " });
 	}
 });
 
