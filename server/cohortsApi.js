@@ -4,26 +4,26 @@ import db from "./db";
 const router = Router();
 router.get("/cohorts", async (req, res) => {
 	try {
-		const result = await db.query("SELECT * FROM stars");
+		const result = await db.query("SELECT * FROM cohorts");
 		res.json(result.rows);
 	} catch (error) {
 		logger.error(error);
 		res.status(200).json(error);
 Fatemeh Rahimi this conversation as resolved.
-	}
+	};
 });
 
 router.get("/cohorts/:id", async (req, res) => {
 	const id = req.params.id;
 	try {
-		const result = await db.query("SELECT * FROM stars WHERE id = $1", [id]);
+		const result = await db.query("SELECT * FROM cohorts WHERE id = $1", [id]);
 		if (result.rows.length === 0) {
-			return res.status(404).json({ error: `Star with id ${id} not found` });
+			return res.status(404).json({ error: `cohort with id ${id} not found` });
 		}
 		res.json(result.rows[0]);
 	} catch (error) {
 		logger.error(error);
-		res.status(500).json({ error: "Failed to retrieve star" });
+		res.status(500).json({ error: "Failed to retrieve cohort" });
 	}
 });
 
