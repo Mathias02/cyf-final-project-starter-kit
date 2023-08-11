@@ -18,14 +18,14 @@ const inputUser = (e) => {
   setUsername('');
 };
 
-if(show) {
+if(show && username) {
   return(
     <TraineeTracker  user={username}/>
   ) 
 }
+
   return (
     <div>
-
       <Navbar />
       <div className='trainee-login-container'>
         <div className="sign">
