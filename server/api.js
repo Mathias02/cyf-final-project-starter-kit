@@ -24,9 +24,9 @@ router.get("/", (_, res) => {
 // Endpoint to create a new cohort
 router.post("/api/cohorts", (req, res) => {
 	const query = req.body;
-	const str = "INSERT INTO cohorts (cohortname) VALUES ($1) RETURNING id";
+	const str = "INSERT INTO cohorts (name) VALUES ($1) RETURNING id";
 	try {
-		db.query(str, [query.cohortname]).then((result) => res.send(result));
+		db.query(str, [query.name]).then((result) => res.send(result));
 	} catch (error) {
 		logger.debug(error);
 	}
