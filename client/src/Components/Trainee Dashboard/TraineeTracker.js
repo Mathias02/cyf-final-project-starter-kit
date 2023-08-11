@@ -11,49 +11,51 @@ const TraineeTracker = ({ user }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        Promise.all([
-            fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
-                .then((res) => {
-                    if (res.status === 200) {
-                        return res.json();
-                    } else {
-                        console.log("Wrong username or other error with the GitHub API.");
-                        throw new Error("Failed to fetch from GitHub");
-                    }
-                })
-                .then((data) => setGithubData(data)),
+        // Fetch GitHub data
+        fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
+            .then((res) => {
+                if (res.status === 200) {
+                    return res.json();
+                } else {
+                    console.log("Wrong username or other error with the GitHub API.");
+                    throw new Error("Failed to fetch from GitHub");
+                }
+            })
+            .then((data) => {
+                setGithubData(data);
 
-            fetch(`https://www.codewars.com/api/v1/users/${user}`)
-                .then((res) => res.json())
-                .then((data) => setCodewars(data))
-                .catch((error) => {
-                    console.error("Error fetching data from CodeWars:", error);
-                    setError("There was an error fetching your CodeWars data.");
-                }),
+                // Fetch CodeWars data
+                return fetch(`https://www.codewars.com/api/v1/users/${user}`);
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                setCodewars(data);
 
-            fetch(`/api/trainees?github_name=${user}`)
-                .then((res) => res.json())
-                .then((data) => {
-                    if (data.length > 0 && data[0].cohort) {
-                        setCohort(data[0].cohort);
-                    } else {
-                        console.log("No cohort data found for this user.");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error fetching cohort data:", error);
-                    setError("There was an error fetching your cohort data.");
-                }),
-        ])
-        .finally(() => setLoading(false));
+                // Fetch cohort data
+                return fetch(`/api/trainees?github_name=${user}`);
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.length > 0 && data[0].cohort) {
+                    setCohort(data[0].cohort);
+                } else {
+                    console.log("No cohort data found for this user.");
+                }
+                setLoading(false); // Set loading to false after all fetch calls are done
+            })
+            .catch((err) => {
+                console.error("Error:", err);
+                setError(err.message || "An error occurred.");
+                setLoading(false);
+            });
     }, [user]);
 
     if (loading) {
-return <p>Loading...</p>;
-}
+        return <p>Loading...</p>;
+    }
     if (error) {
-return <p className="error-message">{error}</p>;
-}
+        return <p className="error-message">{error}</p>;
+    }
 
     return (
         <div className="tracker">
