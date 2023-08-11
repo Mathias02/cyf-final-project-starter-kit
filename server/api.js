@@ -1,4 +1,3 @@
-import { Router } from "express";
 import express from "express";
 import cors from "cors";
 import db from "./db";
@@ -11,9 +10,9 @@ app.use(express.json());
 app.use(cors());
 
 
-const router = Router();
 
-router.get("/", (_, res) => {
+
+app.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
 	res.json({ message: "Hello, world!" });
 });
@@ -22,7 +21,7 @@ router.get("/", (_, res) => {
 
 
 // Endpoint to create a new cohort
-router.post("/api/cohorts", (req, res) => {
+app.post("/api/cohorts", (req, res) => {
 	const query = req.body;
 	const str = "INSERT INTO cohorts (name) VALUES ($1) RETURNING id";
 	try {
@@ -35,4 +34,4 @@ router.post("/api/cohorts", (req, res) => {
 
 
 
-export default router;
+export default app;
