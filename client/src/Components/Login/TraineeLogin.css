@@ -1,42 +1,64 @@
 
-.traine-login-container {
-background-color: #f2f2f2;
-padding: 100px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.trainee-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
   text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  width: 300px;
-  height: 150px;
-  position:fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100%;
 }
 
-.github-sign-in-button {
+.sign {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    background-color: #333;
+    flex-direction: column;
+    margin: 50px auto;
     color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 300px;
-    position:fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 250px;
+    padding: 3px;
+    background-color: #333;
+    border-radius: 8px;
   }
 
-  .github-sign-in-button span {
-    margin-left: 8px;
+  .github{
+    margin: 13px;
+    text-align: center;
+    font-size: 17px;
   }
 
-  .signin-logo {
-    height: 50px;
+  .user_name {
+    display: flex;
+    margin: 5px;
+    text-align: center;
+  }
+
+ .user{
+    margin: 0 1px;
+    border-radius: 3px;
+    padding: 3px;
+    border: 0;
+    outline: none;
+  }
+
+  .btn-submit{
+    padding: 3px 8px;
+    border-radius: 1px;
+    border: 0;
+    font-weight: 500;
+    outline: none;
+  }
+
+  .btn-submit:hover{
+    color: white;
+    background-color: rgb(26, 25, 25);
+  }
+
+  ::placeholder {
+    font-size: 17px;
+    color: rgb(131, 131, 131)
   }
 
 
