@@ -11,7 +11,6 @@ import TraineeTracker from '../Trainee Dashboard/TraineeTracker';
 const TraineeLogin = () => {
   const [username, setUsername] = useState('');
   const [show, setShow] = useState(false);
-  const [error, setError] = useState({show: false, mssg: ''});
 
 const inputUser = (e) => {
   e.preventDefault();
@@ -19,17 +18,12 @@ const inputUser = (e) => {
   setUsername('');
 };
 
-if(!username){
-  return(
-    <h1>Wrong path</h1>
-  )
-}
-
-if(show) {
+if(show && username) {
   return(
     <TraineeTracker  user={username}/>
   ) 
 }
+
   return (
     <div>
       <Navbar />
