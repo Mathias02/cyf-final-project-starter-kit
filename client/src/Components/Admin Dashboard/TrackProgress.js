@@ -7,6 +7,7 @@ const TrackProgress = () => {
         <div>
         <Navbar />
             <h1>Hello vlounteer, below below you can track trainees progress</h1>
+            .traineeprogres
             <Footer />
         </div>
     )
