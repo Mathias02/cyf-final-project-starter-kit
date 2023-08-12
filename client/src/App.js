@@ -13,6 +13,7 @@ import DashboardHome from "./Components/Admin Dashboard/DashboardHome";
 
 const App = () => {
   return (
+    <Router>
       <div>
         {/* Navbar or any other components can be included here */}
         <Routes>
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/track-trainee-progress" element={<TrackProgress />} />
         </Routes>
       </div>
+    </Router>
   );
 };
 
