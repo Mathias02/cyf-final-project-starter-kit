@@ -6,6 +6,7 @@ import './TraineeLogin.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useState} from 'react';
 import TraineeTracker from '../Trainee Dashboard/TraineeTracker';
+import Error from './Error';
 
 
 const TraineeLogin = () => {
@@ -18,7 +19,7 @@ const inputUser = (e) => {
   setUsername('');
 };
 
-if(show && username) {
+if(show) {
   return(
     <TraineeTracker  user={username}/>
   ) 
