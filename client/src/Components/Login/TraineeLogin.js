@@ -1,10 +1,12 @@
-import React from "react";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
-import "./TraineeLogin.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import { useState } from "react";
-import TraineeTracker from "../Trainee Dashboard/TraineeTracker";
+
+import React from 'react';
+import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
+import './TraineeLogin.css'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useState} from 'react';
+import TraineeTracker from '../Trainee Dashboard/TraineeTracker';
+import Error from './Error';
 
 const TraineeLogin = () => {
   const [username, setUsername] = useState("");
@@ -15,9 +17,13 @@ const TraineeLogin = () => {
     setShow(true);  // Toggle the show state here.
   };
 
-  if (show && username) {
-    return <TraineeTracker user={username} />;
-  }
+
+if(show) {
+  return(
+    <TraineeTracker  user={username}/>
+  ) 
+}
+
 
   return (
     <div>

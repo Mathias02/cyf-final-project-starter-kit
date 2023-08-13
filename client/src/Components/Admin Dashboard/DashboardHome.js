@@ -1,18 +1,22 @@
-import React from "react";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
-import { Link } from "react-router-dom";
+
+import React from 'react';
+import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
+import { Link } from 'react-router-dom';
+import './DashboardHome.css';
 
 
 const DashboardHome = () => {
   return (
     <div>
 <Navbar />
-<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "20vh" }}>
-      <button style={{ width: "900px", padding: "10px", fontSize: "40px" }}>
+
+<div className='adminBtn'>
+      <button className="btnlogin">
+
         Hi Admin, welcome to your dashboard!
       </button>
-    </div>
+  </div>
 
 {/* Log in buttons */}
 <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "30vh" }}>
