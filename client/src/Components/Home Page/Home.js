@@ -1,3 +1,4 @@
+
 import React from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
@@ -6,6 +7,7 @@ import LoginButtons from "./LoginButtons";
 import backgroundImage from "../../../src/assets/citite2.jpeg"; // Adjust the path
 
 const Home = () => {
+
 	return (
 		<div
 			style={{
