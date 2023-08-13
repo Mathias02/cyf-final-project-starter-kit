@@ -65,23 +65,42 @@ const startDate = req.body.startDate;
 const endDate = req.body.endDate;
 const cohort = req.body.cohort;
 
-    const query = `
-      INSERT INTO modules (modulename, startdate, enddate, cohort)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *`;
-    const values = [moduleName, startDate, endDate, cohort];
-    const result = await db.query(query, values);
+ 
+app.get('/api/trainees', async (req, res) => {
+  const githubName = req.query.github_name;
 
-    // Debugging: Log the result to see if data is being inserted correctly
-    console.log("Inserted Data:", result.rows[0]);
+  if (!githubName) {
+      return res.status(400).json({ error: "GitHub username is required." });
+  }
 
-    res.status(201).json(result.rows[0]);
+  try {
+      const traineeData = await query(
+          "SELECT t.*, c.name as cohort_name FROM trainee t JOIN cohorts c ON t.cohort_id = c.id WHERE t.github_name = $1",
+          [githubName]
+      );
+
+      if (traineeData.rows.length === 0) {
+          return res.status(404).json({ error: "Trainee not found." });
+      }
+
+      const response = {
+          ...traineeData.rows[0],
+          cohort: {
+              id: traineeData.rows[0].cohort_id,
+              name: traineeData.rows[0].cohort_name
+          }
+      };
+
+      delete response.cohort_id;
+      delete response.cohort_name;
+
+      return res.json(response);
+      
   } catch (error) {
-    logger.error("Error adding module:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error." });
   }
 });
-
 //DELETE
 router.delete("/delete/:id", async (req, res) => {
 	try {
@@ -139,6 +158,7 @@ router.get("/api/trainees", async (req, res) => {
         logger.error(error);
         res.status(500).json({ error: "Failed to retrieve trainee" });
     }
+
 });
 
 export default router;

@@ -72,7 +72,7 @@ return <p className="error-message">{error}</p>;
                         <tr>
                             <td>{githubData?.total_count || "Loading..."}</td>
                             <td>{codewars?.honor || "Loading..."}</td>
-                            <td>{user || "Loading..."}</td>
+                            <td>{cohort?.name || "Loading..."}</td>
                         </tr>
                     </tbody>
                 </table>
