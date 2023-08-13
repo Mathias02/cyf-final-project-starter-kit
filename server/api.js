@@ -1,5 +1,6 @@
 
 import express, { Router } from "express";
+
 import cors from "cors";
 import db from "./db";
 import logger from "./utils/logger";
@@ -9,6 +10,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
+
 
 const router = Router();
 
@@ -65,11 +67,11 @@ const cohort = req.body.cohort;
 
 
 // Endpoint to create a new cohort
-router.post("/api/cohorts", (req, res) => {
+app.post("/api/cohorts", (req, res) => {
 	const query = req.body;
-	const str = "INSERT INTO cohorts (cohortname) VALUES ($1) RETURNING id";
+	const str = "INSERT INTO cohorts (name) VALUES ($1) RETURNING id";
 	try {
-		db.query(str, [query.cohortname]).then((result) => res.send(result));
+		db.query(str, [query.name]).then((result) => res.send(result));
 	} catch (error) {
 		logger.debug(error);
 	}
@@ -137,4 +139,5 @@ router.get("/api/trainees", async (req, res) => {
 });
 
 export default router;
+
 
