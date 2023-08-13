@@ -21,3 +21,6 @@ CREATE TABLE Trainees (
   "cohort_id" INTEGER NOT NULL,
   FOREIGN KEY (cohort_id) REFERENCES Cohorts(id)
 );
+
+INSERT INTO cohorts ("name") VALUES ('ZA-2');
+INSERT INTO cohorts ("name") VALUES ('LDN-10');
