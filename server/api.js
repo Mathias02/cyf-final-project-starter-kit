@@ -3,7 +3,6 @@ import express, { Router } from "express";
 
 import cors from "cors";
 import db from "./db";
-import { Router } from "express";
 import logger from "./utils/logger";
 
 const app = express();
@@ -12,9 +11,6 @@ const router = Router();
 // Middleware
 app.use(express.json());
 app.use(cors());
-
-
-const router = Router();
 
 router.use(express.json());
 router.use(cors());
