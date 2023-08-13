@@ -4,12 +4,17 @@ import cors from "cors";
 import db from "./db";
 import logger from "./utils/logger";
 
+const app = express();
+
+// Middleware
+app.use(express.json());
+app.use(cors());
+
 const router = Router();
 
 router.use(express.json());
 router.use(cors());
 router.use(express.urlencoded({ extended: true }));
-
 
 
 //GET
@@ -57,6 +62,18 @@ const cohort = req.body.cohort;
   }
 });
 
+
+
+// Endpoint to create a new cohort
+router.post("/api/cohorts", (req, res) => {
+	const query = req.body;
+	const str = "INSERT INTO cohorts (cohortname) VALUES ($1) RETURNING id";
+	try {
+		db.query(str, [query.cohortname]).then((result) => res.send(result));
+	} catch (error) {
+		logger.debug(error);
+	}
+});
 
 
 //DELETE
@@ -120,3 +137,4 @@ router.get("/api/trainees", async (req, res) => {
 });
 
 export default router;
+
