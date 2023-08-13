@@ -1,6 +1,6 @@
-import React from 'react'
-import Navbar from '../Navbar/Navbar';
-import Footer from '../Footer/Footer';
+import React from "react";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 const TrackProgress = () => {
     return(
@@ -10,7 +10,7 @@ const TrackProgress = () => {
             .traineeprogres
             <Footer />
         </div>
-    )
-}
+    );
+};
 
 export default TrackProgress;
