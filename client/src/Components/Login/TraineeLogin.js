@@ -4,20 +4,20 @@ import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 import './TraineeLogin.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import TraineeTracker from '../Trainee Dashboard/TraineeTracker';
-import Error from './Error';
 
 
 const TraineeLogin = () => {
   const [username, setUsername] = useState('');
   const [show, setShow] = useState(false);
+  const [error, setError] = useState({});
 
-const inputUser = (e) => {
-  e.preventDefault();
-  setUsername(username);
-  setUsername('');
-};
+const inputSubmit = (e) =>{
+    e.preventDefault()
+    setShow(true)
+    setUsername(username)
+}
 
 if(show) {
   return(
@@ -34,11 +34,12 @@ if(show) {
               <i className="fab fa-github"></i> {/* GitHub icon */}
                 <span>Sign in with GitHub</span>
             </div>
-            <form className="user_name" onSubmit={inputUser}>
-                <input type="text"  value={username} onChange={e => setUsername(e.target.value)}  className='user' placeholder='GitHub username' required />
-                <input type="submit" className='btn-submit' value="submit" onClick={() => setShow(!show)}  />
+            <form className="user_name" onSubmit={inputSubmit}>
+                <input type="text" name='user' value={username} onChange={(e) =>setUsername(e.target.value)} className='user' placeholder='GitHub username' required />
+                <input type="submit" className='btn-submit' value="submit" />
             </form>   
         </div>
+        <p>{error.userinput}</p>
       </div>
 
       <Footer />
