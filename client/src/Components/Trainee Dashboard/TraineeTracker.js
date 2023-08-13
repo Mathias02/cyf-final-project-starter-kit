@@ -1,10 +1,9 @@
+import React, { useEffect, useState } from "react";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
+import "./TraineeTracker.css";
 
-import React, { useEffect, useState } from 'react'
-import Navbar from '../Navbar/Navbar';
-import Footer from '../Footer/Footer';
-import './TraineeTracker.css';
-
-const TraineeTracker = ({user}) => {
+const TraineeTracker = ({ user }) => {
 
 const [entry, setEntry] = useState([]);
 const [codewars, setCodewars] = useState([]);
@@ -12,21 +11,21 @@ const [cohort, setCohort] = useState([]);
 
     useEffect(() =>{
         fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
-        .then(res => {
+        .then((res) => {
             if(res.status == 200){
-               return res.json()
+               return res.json();
             }else{
-                console.log('wrong username')
+                console.log("wrong username");
             }
             })
-        .then(data => setEntry(data))
+        .then((data) => setEntry(data));
     },[user]);
 
     useEffect(() =>{
         fetch(`https://www.codewars.com/api/v1/users/${user}`)
-        .then(res => res.json())
-        .then(data => setCodewars(data))
-    },[user])
+        .then((res) => res.json())
+        .then((data) => setCodewars(data));
+    },[user]);
 
     useEffect(() =>{
         fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
@@ -50,8 +49,8 @@ const [cohort, setCohort] = useState([]);
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{entry?.total_count || 'Loading...'}</td>
-                            <td>{codewars?.honor || 'Loading...'}</td>
+                            <td>{entry?.total_count || "Loading..."}</td>
+                            <td>{codewars?.honor || "Loading..."}</td>
                         </tr>
                     </tbody>
                 </table>

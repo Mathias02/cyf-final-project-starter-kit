@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
@@ -9,13 +10,16 @@ const DashboardHome = () => {
   return (
 <div>
 <Navbar />
+
 <div className='adminBtn'>
       <button className="btnlogin">
+
         Hi Admin, welcome to your dashboard!
       </button>
 </div>
 
 {/* Log in buttons */}
+
 <div className='adminbody'>
       <div className='admindiv'>
         {/* Use absolute paths starting with a forward slash */}
@@ -24,6 +28,7 @@ const DashboardHome = () => {
         </Link>
         <Link to="/track-trainee-progress">
           <button>Track Trainee Progress</button>
+
         </Link>
       </div>
   </div>
