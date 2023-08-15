@@ -1,19 +1,15 @@
-.adminBtn{
+.adminBtn {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 20vh;
 }
 
-.btnlogin{
+/* You have the .btnlogin class repeated. Let's merge the styles. */
+.btnlogin {
   width: 900px; 
   padding: 10px; 
   font-size: 40px;
- }
- 
- .btnlogin{ 
-  width: 900px; 
-  padding: 10px; font-size: 40px 
 }
 
 .adminbody {
@@ -23,12 +19,23 @@
   height: 30vh;
 }
 
+/* Default button layout for mobile screens */
 .admindiv {
-  display: 'flex'; 
-  gap: 100px;
+  display: flex;
+  flex-direction: column;  /* Stack buttons vertically on small screens */
+  gap: 50px; /* Space between buttons */
+  align-items: center; /* Ensure buttons remain centered */
 }
 
 .adminbodybtn {
   padding: 10px 20px;
   font-size: 16px;
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+  .admindiv {
+    flex-direction: row;  /* Lay buttons side by side */
+    gap: 100px; /* Increase gap between buttons for larger screens */
+  }
 }
