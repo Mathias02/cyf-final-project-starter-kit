@@ -40,7 +40,7 @@ const Home = () => {
 					height: "100%",
 				}}
 			>
-				<button
+				<div
 					style={{
 						width: "51rem",
 						padding: "10px",
@@ -52,7 +52,7 @@ const Home = () => {
 					}}
 				>
 					Welcome to CYF Trainees Milestones Tracker
-				</button>
+				</div>
 				<LoginButtons />
 			</div>
 
