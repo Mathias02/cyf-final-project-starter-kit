@@ -48,3 +48,26 @@
   vertical-align: middle;
   text-align: left;
 }
+@media (max-width: 768px) {
+  .trainee-tracker-container {
+      padding: 30px 20px;
+  }
+
+  .tracker-table thead th,
+  .tracker-table tbody td {
+      padding: 0 10px;
+  }
+
+  .tracker-table thead th {
+      font-size: 0.75em;
+  }
+
+  .tracker-table tbody td {
+      font-size: 0.8em;
+  }
+
+  .tracker-table tbody tr {
+      height: 40px;
+      line-height: 40px;
+  }
+}
