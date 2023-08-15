@@ -1,4 +1,3 @@
-
 import express, { Router } from "express";
 
 import cors from "cors";
@@ -11,6 +10,7 @@ const router = Router();
 // Middleware
 app.use(express.json());
 app.use(cors());
+
 router.use(express.json());
 router.use(cors());
 router.use(express.urlencoded({ extended: true }));
@@ -139,6 +139,26 @@ router.delete("/delete/:id", async (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
 	}
   });
+
+
+//GET FOR TRAINEE PROGRESS TABLE
+
+router.get("/traineeProgress", async (req, res) => {
+	try {
+	const querySelect = `
+		SELECT * from traineeProgress`;
+	const result = await db.query(querySelect);
+	console.log(result);
+
+	res.json(result.rows);
+	} catch (error) {
+	logger.error("Error fetching modules:", error);
+	res.status(500).json({ error: "Internal Server Error" });
+	}
+  });
+
+
+
   router.post("/api/milestones", async (req, res) => {
     const { name, date, github_pr, codewars_rank, cohort_id } = req.body;
 
@@ -156,4 +176,3 @@ router.delete("/delete/:id", async (req, res) => {
 
 
 export default router;
-
