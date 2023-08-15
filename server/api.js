@@ -9,8 +9,6 @@ const app = express();
 const router = Router();
 
 // Middleware
-app.use(express.json());
-app.use(cors());
 router.use(express.json());
 router.use(cors());
 router.use(express.urlencoded({ extended: true }));
@@ -154,6 +152,43 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 
+router.get("/api/trainees", async (req, res) => {
+    const githubName = req.query.github_name;
+
+    if (!githubName) {
+        return res.status(400).json({ error: "GitHub name is required" });
+    }
+
+    try {
+        // This is a pseudo code. Use your actual DB logic here
+        const trainees = await db.query("SELECT * FROM trainees WHERE github_name = $1", [githubName]);
+
+        if (trainees.rows.length === 0) {
+            return res.status(404).json({ error: "Trainee not found" });
+        }
+
+        res.json(trainees.rows[0]);  // Assuming you want to return just the first match
+    } catch (error) {
+        logger.error(error);
+        res.status(500).json({ error: "Failed to retrieve trainee" });
+    }
+
+});
+
+//GET FOR TRAINEE PROGRESS TABLE
+
+router.get("/traineeProgress", async (req, res) => {
+	try {
+	const querySelect = `
+		SELECT * from traineeProgress`;
+	const result = await db.query(querySelect);
+	console.log(result);
+
+	res.json(result.rows);
+	} catch (error) {
+	logger.error("Error fetching modules:", error);
+	res.status(500).json({ error: "Internal Server Error" });
+	}
+  });
 
 export default router;
-
