@@ -14,12 +14,6 @@ const TrackProgress = () => {
                         <label htmlFor="cohort">Cohort Name: 
                           <input type="text" id="cohort" className="cohort_name" name="cohort" placeholder="Enter Cohort Name" required/>
                         </label>
-                        <label htmlFor="startDate">Start Date: 
-                          <input type="text" id="startDate" className="trainee_name" name='startDate' placeholder="Enter Start Date" required />
-                        </label>
-                        <label htmlFor="endDate">End Date: 
-                          <input type="text" id="endDate" className="trainee_name" name='endDate' placeholder="Enter End Date" required />
-                        </label>
                         <input type="submit" className="trainee_submit" value="submit" />
                     </form>
                 </div>

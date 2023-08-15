@@ -19,20 +19,17 @@ const inputSubmit = (e) =>{
     setUsername(username)
 }
 
-
 if(show) {
   return(
     <TraineeTracker  user={username}/>
   ) 
 }
 
-
   return (
     <div>
       <Navbar />
       <div className='trainee-login-container'>
         <div className="sign">
-
             <div className="github">
               <i className="fab fa-github"></i> {/* GitHub icon */}
                 <span>Sign in with GitHub</span>
@@ -41,9 +38,7 @@ if(show) {
                 <input type="text" name='user' value={username} onChange={(e) =>setUsername(e.target.value)} className='user' placeholder='GitHub username' required />
                 <input type="submit" className='btn-submit' value="submit" />
             </form>   
-
         </div>
-        <p>{error.userinput}</p>
       </div>
       <Footer />
     </div>
