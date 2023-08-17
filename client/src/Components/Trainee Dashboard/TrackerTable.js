@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './TraineeTracker.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./TraineeTracker.css";
 
 const TrackerTable = () => {
     const [progressData, setProgressData] = useState([]);
 
     useEffect(() => {
         axios.get("/api/traineeProgress")
-            .then(response => {
+            .then((response) => {
                 setProgressData(response.data);
             })
-            .catch(error => {
-                console.error('Error fetching data:', error);
+            .catch((error) => {
+                console.error("Error fetching data:", error);
             });
     }, []);
 

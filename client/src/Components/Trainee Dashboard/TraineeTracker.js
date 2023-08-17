@@ -53,6 +53,7 @@ const [cohort, setCohort] = useState([]);
                             <td>{entry?.total_count || "Loading..."}</td>
                             <td>{codewars?.honor || "Loading..."}</td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
