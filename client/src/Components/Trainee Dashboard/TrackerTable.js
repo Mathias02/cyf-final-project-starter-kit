@@ -1,50 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./TraineeTracker.css";
 
 const TrackerTable = () => {
-    const [progressData, setProgressData] = useState([]);
+    const [cohortFilter, setCohortFilter] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
 
-    useEffect(() => {
+    const handleCohortFilter = () => {
         axios.get("/api/traineeProgress")
             .then((response) => {
-                setProgressData(response.data);
+                const filtered = response.data.filter(entry =>
+                    entry.cohort.toLowerCase() === cohortFilter.toLowerCase()
+                );
+                setFilteredData(filtered);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    };
 
     return (
         <div>
+            <div className="filter-container">
+                <input
+                    type="text"
+                    placeholder="Enter Cohort"
+                    value={cohortFilter}
+                    onChange={(e) => setCohortFilter(e.target.value)}
+                />
+                <button onClick={handleCohortFilter}>Submit</button>
+            </div>
 
-            <div className="trainee-tracker-container">
-            <table className="tracker-table">
-                <thead>
-                    <tr>
-                        <th>Milestones</th>
-                        <th>Date</th>
-                        <th>Required Pull Requests</th>
-                        <th>Codewars</th>
-                        <th>Cohort</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {progressData.map((entry, index) => (
-                        <tr key={index}>
-                            <td>{entry.milestones}</td>
-                            <td>{new Date(entry.date).toLocaleDateString()}</td>
-                            <td>{entry.required_pull_requests}</td>
-                            <td>{entry.codewars}</td>
-                            <td>{entry.cohort}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-</div>
-
+            {filteredData.length > 0 && (
+                <div className="trainee-tracker-container">
+                    <table className="tracker-table">
+                        <thead>
+                            <tr>
+                                <th>Milestones</th>
+                                <th>Date</th>
+                                <th>Required Pull Requests</th>
+                                <th>Codewars</th>
+                                <th>Cohort</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredData.map((entry, index) => (
+                                <tr key={index}>
+                                    <td>{entry.milestones}</td>
+                                    <td>{new Date(entry.date).toLocaleDateString()}</td>
+                                    <td>{entry.required_pull_requests}</td>
+                                    <td>{entry.codewars}</td>
+                                    <td>{entry.cohort}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
     );
 };
 
 export default TrackerTable;
+
