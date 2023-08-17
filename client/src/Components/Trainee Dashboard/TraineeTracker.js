@@ -28,13 +28,13 @@ const [cohort, setCohort] = useState([]);
         .then((data) => setCodewars(data));
     },[user]);
 
-    useEffect(() =>{
+    useEffect(() => {
         fetch(`https://api.github.com/search/issues?q=is:pr%20author:${user}%20user:codeyourfuture`)
-        .then((res) => res.json())
-        .then((data) => setCohort(data.items.filter( (item) =>{
-            return console.log(item.url);
-        })));
-    },[user]);
+            .then((res) => res.json())
+            .then((data) => setCohort(data.items.filter((item) => {
+                return console.log(item.url);
+            })));
+    }, [user]);
 
     return(
         <div className='tracker'>
