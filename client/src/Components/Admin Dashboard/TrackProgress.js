@@ -90,6 +90,7 @@ const TrackProgress = () => {
 			<Footer />
 		</div>
 	);
+
 };
 
 export default TrackProgress;
