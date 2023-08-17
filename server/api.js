@@ -9,9 +9,6 @@ const app = express();
 const router = Router();
 
 // Middleware
-app.use(express.json());
-app.use(cors());
-
 router.use(express.json());
 router.use(cors());
 router.use(express.urlencoded({ extended: true }));
@@ -140,6 +137,19 @@ router.delete("/delete/:id", async (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
 	}
   });
+  router.post("/api/milestones", async (req, res) => {
+    const { name, date, github_pr, codewars_rank, cohort_id } = req.body;
+
+    const addMilestone = "INSERT INTO milestones (name, date, github_pr, codewars_rank, cohort_id) VALUES ($1, $2, $3, $4, $5) RETURNING id";
+
+    try {
+        const result = await db.query(addMilestone, [name, date, github_pr, codewars_rank, cohort_id]);
+        res.send(result.rows[0]);
+    } catch (error) {
+        logger.debug(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 
 router.get("/api/trainees", async (req, res) => {
@@ -181,6 +191,4 @@ router.get("/traineeProgress", async (req, res) => {
 	}
   });
 
-
 export default router;
-
