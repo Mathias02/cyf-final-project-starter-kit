@@ -167,6 +167,29 @@ router.get("/traineeProgress", async (req, res) => {
 	}
   });
 
+//   POST FOR THE TABLE IN THE ADMIN DASHBOARD, TRACKER TABLE
+
+router.post("/traineeProgress", async (req, res) => {
+    try {
+        const { milestones, date, required_pull_requests, codewars, cohort } = req.body;
+
+        const queryInsert = `
+            INSERT INTO traineeProgress (milestones, date, required_pull_requests, codewars, cohort)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *`;
+
+        const values = [milestones, date, required_pull_requests, codewars, cohort];
+
+        const result = await db.query(queryInsert, values);
+        console.log("Inserted row:", result.rows[0]);
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error("Error inserting into trainee progress:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 
   router.post("/api/milestones", async (req, res) => {
     const { name, date, github_pr, codewars_rank, cohort_id } = req.body;
