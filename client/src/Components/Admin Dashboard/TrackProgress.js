@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import './TrackProgress.css';
-import AdminTrackerTable from "./AdminTrackerTable";
+import AdminTrackerTable from "./Tracker Form/AdminTrackerTable";
 
 const TrackProgress = () => {
     return(

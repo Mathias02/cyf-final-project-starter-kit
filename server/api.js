@@ -190,6 +190,48 @@ router.post("/traineeProgress", async (req, res) => {
     }
 });
 
+//   PUT FOR THE TABLE IN THE ADMIN DASHBOARD, TRACKER TABLE
+router.put("/traineeProgress/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { milestones, date, required_pull_requests, codewars, cohort } = req.body;
+
+        const queryUpdate = `
+            UPDATE traineeProgress
+            SET milestones = $1, date = $2, required_pull_requests = $3, codewars = $4, cohort = $5
+            WHERE id = $6
+            RETURNING *`;
+
+        const values = [milestones, date, required_pull_requests, codewars, cohort, id];
+
+        const result = await db.query(queryUpdate, values);
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error("Error updating trainee progress:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+//   DELETE FOR THE TABLE IN THE ADMIN DASHBOARD, TRACKER TABLE
+router.delete("/traineeProgress/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const queryDelete = `
+            DELETE FROM traineeProgress
+            WHERE id = $1`;
+
+        const values = [id];
+
+        await db.query(queryDelete, values);
+        res.json({ message: "Trainee progress deleted successfully." });
+    } catch (error) {
+        console.error("Error deleting trainee progress:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
 
   router.post("/api/milestones", async (req, res) => {
     const { name, date, github_pr, codewars_rank, cohort_id } = req.body;

@@ -1,242 +1,218 @@
-/* Modules.js */
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import moment from 'moment';
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import moment from 'moment';
-import "./modules.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from "axios";
 
-const Modules = () => {
-  // STATE
-  const [moduleName, setModuleName] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [cohortName, setCohortName] = useState("");
-  const [modules, setModules] = useState([]);
-  const [editingModuleId, setEditingModuleId] = useState(null);
-  const [editedModuleName, setEditedModuleName] = useState("");
-  const [editedStartDate, setEditedStartDate] = useState("");
-  const [editedEndDate, setEditedEndDate] = useState("");
-  const [editedCohortName, setEditedCohortName] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredModules, setFilteredModules] = useState([]);
-
-  // SUBMIT FUNCTION
-  const insertModule = async (event) => {
-    event.preventDefault();
-    try {
-      const formattedStartDate = moment(startDate).format('YYYY-MM-DD');
-      const formattedEndDate = moment(endDate).format('YYYY-MM-DD');
-
-      const response = await axios.post('/api/insert', {
-        moduleName: moduleName,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-        cohort: cohortName,
-      });
-      console.log('Data inserted successfully!', response.data);
-      fetchModules(); // Fetch modules again after insertion
-    } catch (error) {
-      console.error('Error inserting data:', error);
-    }
-  };
-
-  //GET FUNCTION
-  useEffect(() => {
-    // Fetch data from the server when the component mounts
-    fetchModules();
-  }, []);
-
-  const fetchModules = async () => {
-    try {
-      const response = await axios.get('/api/get');
-      setModules(response.data);
-      setFilteredModules(response.data);
-    } catch (error) {
-      console.error('Error fetching modules:', error);
-    }
-  };
-
-  // DELETE FUNCTION
-  const handleDeleteClick = async (moduleId) => {
-    try {
-      await axios.delete(`/api/delete/${moduleId}`);
-      fetchModules(); // Fetch modules again after deletion
-    } catch (error) {
-      console.error('Error deleting module:', error);
-    }
-  };
-
-  //PUT FUNCTION
-  const handleEditClick = (moduleId) => {
-    setEditingModuleId(moduleId);
-  };
-
-  const handleSaveClick = async (moduleId) => {
-    try {
-      const updatedModule = {
-        moduleName: editedModuleName,
-        startDate: moment(editedStartDate).format('YYYY-MM-DD'),
-        endDate: moment(editedEndDate).format('YYYY-MM-DD'),
-        cohort: editedCohortName,
-      };
-      await axios.put(`/api/update/${moduleId}`, updatedModule);
-      setEditingModuleId(null);
-      fetchModules(); // Fetch modules again after updating
-    } catch (error) {
-      console.error('Error updating module:', error);
-    }
-  };
-
-  // Handle filter by cohort
-  const handleFilterByCohort = () => {
-    const filteredData = modules.filter((module) => {
-      return module.cohort.toLowerCase().includes(searchTerm.toLowerCase());
+const AdminTrackerTable = () => {
+    const [progressData, setProgressData] = useState([]);
+    const [formData, setFormData] = useState({
+        milestones: "",
+        date: "",
+        required_pull_requests: "",
+        codewars: "",
+        cohort: ""
     });
-    setFilteredModules(filteredData);
-  };
+    const [editingEntryId, setEditingEntryId] = useState(null);
+    const [editedMilestones, setEditedMilestones] = useState("");
+    const [editedDate, setEditedDate] = useState("");
+    const [editedRequiredPullRequests, setEditedRequiredPullRequests] = useState("");
+    const [editedCodewars, setEditedCodewars] = useState("");
+    const [editedCohort, setEditedCohort] = useState("");
 
-  // Reset the module list (clear filter)
-  const handleResetFilter = () => {
-    setSearchTerm("");
-    setFilteredModules(modules);
-  };
+    useEffect(() => {
+        fetchProgressData();
+    }, []);
 
-  useEffect(() => {
-    if (searchTerm === "") {
-      setFilteredModules(modules);
-    }
-  }, [searchTerm, modules]);
+    const fetchProgressData = async () => {
+        try {
+            const response = await axios.get("/api/traineeProgress");
+            setProgressData(response.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
 
-  return (
-    <div>
-      <Navbar />
-      <div className="container" style={{ textAlign: 'left', marginRight: '30px' }}>
-        <h3 style={{ marginBottom: '60px' }}>Hello Admin, below you can update modules!</h3>
-        <div className='form'>
-        <div className='form' style={{ textAlign: 'left' }}>
-          <form onSubmit={insertModule}>
-          <h6>Enter new module:</h6>
-            <input type='text' placeholder='Enter Module Name' name='moduleName' onChange={(e) => {
-              setModuleName(e.target.value);
-            }} />
-            <label htmlFor='endDate'>Select Start Date</label>
-            <input type='date' placeholder='Enter Start Date' name='startDate' onChange={(e) => {
-              setStartDate(e.target.value);
-            }} />
-            <label htmlFor='endDate'>Select End Date</label>
-            <input type='date' placeholder='Select End Date' name='endDate' onChange={(e) => {
-              setEndDate(e.target.value);
-            }} />
-            <input type='text' placeholder='Enter Cohort Name' name='cohortName' onChange={(e) => {
-              setCohortName(e.target.value);
-            }} />
-            <button type='submit'>Submit</button>
-          </form>
-          </div>
-        </div>
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
 
-        {/* TABLE STARTS HERE */}
-        <div className="table-container">
-          <div className="filter-container">
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-            {/* Search input for filtering by cohort */}
-            <input
-              type="text"
-              placeholder="Filter by Cohort"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+        try {
+            const response = await axios.post("/api/traineeProgress", formData);
+            console.log("Inserted row:", response.data);
+            fetchProgressData();
+        } catch (error) {
+            console.error("Error inserting trainee progress:", error);
+            // Handle the error, show an error message, etc.
+        }
+    };
 
-            {/* Filter and Reset buttons */}
-            <div className="button-container">
-              <button onClick={handleFilterByCohort}>Filter</button>
-              <button onClick={handleResetFilter}>Reset</button>
+    const handleEditClick = (id) => {
+        setEditingEntryId(id);
+
+        // Find the entry to be edited based on its ID
+        const entryToEdit = progressData.find((entry) => entry.id === id);
+
+        // Update the state with the values of the entry to be edited
+        setEditedMilestones(entryToEdit.milestones);
+        setEditedDate(entryToEdit.date);
+        setEditedRequiredPullRequests(entryToEdit.required_pull_requests);
+        setEditedCodewars(entryToEdit.codewars);
+        setEditedCohort(entryToEdit.cohort);
+    };
+
+    const handleSaveClick = async (id) => {
+        try {
+            const updatedEntry = {
+                milestones: editedMilestones,
+                date: moment(editedDate).format('YYYY-MM-DD'),
+                required_pull_requests: editedRequiredPullRequests,
+                codewars: editedCodewars,
+                cohort: editedCohort,
+            };
+            await axios.put(`/api/traineeProgress/${id}`, updatedEntry);
+            setEditingEntryId(null);
+            fetchProgressData(); // Fetch data again after updating
+        } catch (error) {
+            console.error('Error updating trainee progress:', error);
+        }
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`/api/traineeProgress/${id}`);
+            console.log("Deleted row:", id);
+            fetchProgressData(); // Fetch data again to reflect the deleted row
+        } catch (error) {
+            console.error("Error deleting trainee progress:", error);
+            // Handle the error, show an error message, etc.
+        }
+    };
+
+    return (
+        <div>
+        <Navbar />
+            <div>
+                <h2>Insert Trainee Progress</h2>
+                <form onSubmit={handleSubmit}>
+                    <label>Milestones:</label>
+                    <input type="text" name="milestones" value={formData.milestones} onChange={handleChange} /><br />
+
+                    <label>Date:</label>
+                    <input type="date" name="date" value={formData.date} onChange={handleChange} /><br />
+
+                    <label>Required Pull Requests:</label>
+                    <input type="number" name="required_pull_requests" value={formData.required_pull_requests} onChange={handleChange} /><br />
+
+                    <label>Codewars:</label>
+                    <input type="number" name="codewars" value={formData.codewars} onChange={handleChange} /><br />
+
+                    <label>Cohort:</label>
+                    <input type="text" name="cohort" value={formData.cohort} onChange={handleChange} /><br />
+
+                    <button type="submit">Insert</button>
+                </form>
             </div>
-          </div>
 
-          {/* Modules list table */}
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Module Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Cohort</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredModules.map((module) => (
-                <tr key={module.id}>
-                  <td>
-                    {module.id === editingModuleId ? (
-                      <input
-                        type="text"
-                        value={editedModuleName}
-                        onChange={(e) => setEditedModuleName(e.target.value)}
-                      />
-                    ) : (
-                      module.modulename
-                    )}
-                  </td>
-                  <td>
-                    {module.id === editingModuleId ? (
-                      <input
-                        type="date"
-                        value={editedStartDate}
-                        onChange={(e) => setEditedStartDate(e.target.value)}
-                      />
-                    ) : (
-                      moment(module.startdate).format('YYYY-MM-DD')
-                    )}
-                  </td>
-                  <td>
-                    {module.id === editingModuleId ? (
-                      <input
-                        type="date"
-                        value={editedEndDate}
-                        onChange={(e) => setEditedEndDate(e.target.value)}
-                      />
-                    ) : (
-                      moment(module.enddate).format('YYYY-MM-DD')
-                    )}
-                  </td>
-                  <td>
-                    {module.id === editingModuleId ? (
-                      <input
-                        type="text"
-                        value={editedCohortName}
-                        onChange={(e) => setEditedCohortName(e.target.value)}
-                      />
-                    ) : (
-                      module.cohort
-                    )}
-                  </td>
-                  <td>
-                    {module.id === editingModuleId ? (
-                      <div>
-                        <button onClick={() => handleSaveClick(module.id)}>Save</button>
-                        <button onClick={() => setEditingModuleId(null)}>Cancel</button>
-                      </div>
-                    ) : (
-                      <>
-                        <button onClick={() => handleEditClick(module.id)}>Edit</button>
-                        <button onClick={() => handleDeleteClick(module.id)}>Delete</button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            <div className="trainee-tracker-container">
+                <table className="tracker-table">
+                    <thead>
+                        <tr>
+                            <th>Milestones</th>
+                            <th>Date</th>
+                            <th>Required Pull Requests</th>
+                            <th>Codewars</th>
+                            <th>Cohort</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {progressData.map((entry, index) => (
+                            <tr key={index}>
+                                <td>
+                                    {editingEntryId === entry.id ? (
+                                        <input
+                                            type="text"
+                                            value={editedMilestones}
+                                            onChange={(e) => setEditedMilestones(e.target.value)}
+                                        />
+                                    ) : (
+                                        entry.milestones
+                                    )}
+                                </td>
+                                <td>
+                                    {editingEntryId === entry.id ? (
+                                        <input
+                                            type="date"
+                                            value={editedDate}
+                                            onChange={(e) => setEditedDate(e.target.value)}
+                                        />
+                                    ) : (
+                                        new Date(entry.date).toLocaleDateString()
+                                    )}
+                                </td>
+                                <td>
+                                    {editingEntryId === entry.id ? (
+                                        <input
+                                            type="number"
+                                            value={editedRequiredPullRequests}
+                                            onChange={(e) => setEditedRequiredPullRequests(e.target.value)}
+                                        />
+                                    ) : (
+                                        entry.required_pull_requests
+                                    )}
+                                </td>
+                                <td>
+                                    {editingEntryId === entry.id ? (
+                                        <input
+                                            type="number"
+                                            value={editedCodewars}
+                                            onChange={(e) => setEditedCodewars(e.target.value)}
+                                        />
+                                    ) : (
+                                        entry.codewars
+                                    )}
+                                </td>
+                                <td>
+                                    {editingEntryId === entry.id ? (
+                                        <input
+                                            type="text"
+                                            value={editedCohort}
+                                            onChange={(e) => setEditedCohort(e.target.value)}
+                                        />
+                                    ) : (
+                                        entry.cohort
+                                    )}
+                                </td>
+                                <td>
+                                    {editingEntryId === entry.id ? (
+                                        <div>
+                                            <button onClick={() => handleSaveClick(entry.id)}>Save</button>
+                                            <button onClick={() => setEditingEntryId(null)}>Cancel</button>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <button onClick={() => handleEditClick(entry.id)}>Edit</button>
+                                            <button onClick={() => handleDelete(entry.id)}>Delete</button>
+                                        </div>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <Footer />
         </div>
-      </div>
-      <Footer />
-    </div>
-  );
+    );
 };
 
-export default Modules;
+export default AdminTrackerTable;
 
