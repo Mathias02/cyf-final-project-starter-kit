@@ -50,7 +50,6 @@ const AdminTrackerTable = () => {
             fetchProgressData();
         } catch (error) {
             console.error("Error inserting trainee progress:", error);
-            // Handle the error, show an error message, etc.
         }
     };
 
@@ -92,7 +91,6 @@ const AdminTrackerTable = () => {
             fetchProgressData(); // Fetch data again to reflect the deleted row
         } catch (error) {
             console.error("Error deleting trainee progress:", error);
-            // Handle the error, show an error message, etc.
         }
     };
 
