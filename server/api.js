@@ -1,4 +1,3 @@
-
 import express, { Router } from "express";
 
 import cors from "cors";
@@ -152,29 +151,6 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 
-router.get("/api/trainees", async (req, res) => {
-    const githubName = req.query.github_name;
-
-    if (!githubName) {
-        return res.status(400).json({ error: "GitHub name is required" });
-    }
-
-    try {
-        // This is a pseudo code. Use your actual DB logic here
-        const trainees = await db.query("SELECT * FROM trainees WHERE github_name = $1", [githubName]);
-
-        if (trainees.rows.length === 0) {
-            return res.status(404).json({ error: "Trainee not found" });
-        }
-
-        res.json(trainees.rows[0]);  // Assuming you want to return just the first match
-    } catch (error) {
-        logger.error(error);
-        res.status(500).json({ error: "Failed to retrieve trainee" });
-    }
-
-});
-
 //GET FOR TRAINEE PROGRESS TABLE
 
 router.get("/traineeProgress", async (req, res) => {
@@ -190,5 +166,23 @@ router.get("/traineeProgress", async (req, res) => {
 	res.status(500).json({ error: "Internal Server Error" });
 	}
   });
+
+
+  router.post("/api/milestones", async (req, res) => {
+    const { name, date, github_pr, codewars_rank, cohort_id } = req.body;
+
+    const addMilestone = "INSERT INTO milestones (name, date, github_pr, codewars_rank, cohort_id) VALUES ($1, $2, $3, $4, $5) RETURNING id";
+
+    try {
+        const result = await db.query(addMilestone, [name, date, github_pr, codewars_rank, cohort_id]);
+        res.send(result.rows[0]);
+    } catch (error) {
+        logger.debug(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
 
 export default router;
