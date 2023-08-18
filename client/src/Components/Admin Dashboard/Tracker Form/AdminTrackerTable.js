@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from 'moment';
@@ -18,6 +19,10 @@ const AdminTrackerTable = () => {
     const [editedCodewars, setEditedCodewars] = useState("");
     const [editedCohort, setEditedCohort] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
+
+    // Define the available cohorts and milestones
+    const cohorts = ["LDN-9", "LDN-10", "LDN-11", "LDN-12", "ZA-2", "ZA-3"];
+    const milestones = ["Intro To Coding", "Fundamentals", "Induction", "Git and Github", "HTML-CSS", "JavaScript Core 1", "JavaScript Core 2", "JavaScript Core 3", "React", "Node", "SQL", "Final Projects"];
 
     useEffect(() => {
         fetchProgressData();
@@ -118,11 +123,16 @@ const AdminTrackerTable = () => {
     return (
         <div>
             <div>
-                <h2>Insert new milestone</h2>
+                <h2>Insert new milestone for database</h2>
                 {/* FORM TO INSERT NEW MILESTONES */}
                 <form onSubmit={handleSubmit}>
                     <label>Milestones:</label>
-                    <input type="text" name="milestones" value={formData.milestones} onChange={handleChange} /><br />
+                    <select name="milestones" value={formData.milestones} onChange={handleChange}>
+                        <option value="">Select a milestone</option>
+                        {milestones.map((milestone) => (
+                            <option key={milestone} value={milestone}>{milestone}</option>
+                        ))}
+                    </select><br />
 
                     <label>Date:</label>
                     <input type="date" name="date" value={formData.date} onChange={handleChange} /><br />
@@ -134,7 +144,12 @@ const AdminTrackerTable = () => {
                     <input type="number" name="codewars" value={formData.codewars} onChange={handleChange} /><br />
 
                     <label>Cohort:</label>
-                    <input type="text" name="cohort" value={formData.cohort} onChange={handleChange} /><br />
+                    <select name="cohort" value={formData.cohort} onChange={handleChange}>
+                        <option value="">Select a cohort</option>
+                        {cohorts.map((cohort) => (
+                            <option key={cohort} value={cohort}>{cohort}</option>
+                        ))}
+                    </select><br />
 
                     <button type="submit">Insert</button>
                 </form>
@@ -167,17 +182,26 @@ const AdminTrackerTable = () => {
                     <tbody>
                         {progressData.map((entry) => (
                             <tr key={entry.id}>
+                            {/* MILESTONES COLUMN */}
                                 <td>
-                                    {editingEntryId === entry.id ? (
-                                        <input
-                                            type="text"
+                                {editingEntryId === entry.id ? (
+                                        <select
                                             value={editedMilestones}
                                             onChange={(e) => setEditedMilestones(e.target.value)}
-                                        />
+                                        >
+                                            <option value="">Select a milestone</option>
+                                            {milestones.map((milestone) => (
+                                                <option key={milestone} value={milestone}>
+                                                    {milestone}
+                                                </option>
+                                            ))}
+                                        </select>
                                     ) : (
                                         entry.milestones
                                     )}
                                 </td>
+
+                                {/* DATE COLUMN */}
                                 <td>
                                     {editingEntryId === entry.id ? (
                                         <input
@@ -189,6 +213,8 @@ const AdminTrackerTable = () => {
                                         new Date(entry.date).toLocaleDateString()
                                     )}
                                 </td>
+
+                                {/* PR COLUMN */}
                                 <td>
                                     {editingEntryId === entry.id ? (
                                         <input
@@ -200,6 +226,8 @@ const AdminTrackerTable = () => {
                                         entry.required_pull_requests
                                     )}
                                 </td>
+
+                                {/* CODEWARS COLUMN */}
                                 <td>
                                     {editingEntryId === entry.id ? (
                                         <input
@@ -211,13 +239,21 @@ const AdminTrackerTable = () => {
                                         entry.codewars
                                     )}
                                 </td>
+
+                                {/* COHORT COLUMN */}
                                 <td>
                                     {editingEntryId === entry.id ? (
-                                        <input
-                                            type="text"
+                                        <select
                                             value={editedCohort}
                                             onChange={(e) => setEditedCohort(e.target.value)}
-                                        />
+                                        >
+                                            <option value="">Select a cohort</option>
+                                            {cohorts.map((cohort) => (
+                                                <option key={cohort} value={cohort}>
+                                                    {cohort}
+                                                </option>
+                                            ))}
+                                        </select>
                                     ) : (
                                         entry.cohort
                                     )}
