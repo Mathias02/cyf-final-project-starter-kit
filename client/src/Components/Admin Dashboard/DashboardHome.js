@@ -28,7 +28,6 @@ const DashboardHome = () => {
         </Link>
         <Link to="/track-trainee-progress">
           <button>Track Trainee Progress</button>
-
         </Link>
       </div>
   </div>
