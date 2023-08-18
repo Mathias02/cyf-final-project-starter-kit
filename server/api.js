@@ -23,7 +23,7 @@ router.get("/get", async (req, res) => {
 	console.log(result);
 
 	// Send the retrieved data as the response
-	res.json(result.rows);
+	res.json(result.rows[0]);
 	} catch (error) {
 	logger.error("Error fetching modules:", error);
 	res.status(500).json({ error: "Internal Server Error" });
@@ -61,7 +61,7 @@ const cohort = req.body.cohort;
 
 // Endpoint to create a new cohort
 
-router.post("/api/cohorts", (req, res) => {
+router.post("/api/cohorts", async (req, res) => {
 	const query = req.body;
 	const insertQuery = "INSERT INTO cohorts (name) VALUES ($1) RETURNING id";
 
@@ -182,6 +182,7 @@ router.get("/traineeProgress", async (req, res) => {
     }
 });
 
+//End point to create 
 
 
 
