@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../Navbar/Navbar";
+
+import React, { useState } from "react";
+import BackNav from "../Navbar/BackNav";
 import Footer from "../Footer/Footer";
 import "./TrackProgress.css";
-import BackButton from "../BackButton/BackButton";
 import AdminTrackerTable from "./Tracker Form/AdminTrackerTable";
-import TrackerTable from "../Trainee Dashboard/TrackerTable";
 
 const TrackProgress = () => {
 	const [username, setUsername] = useState("");
@@ -62,19 +61,20 @@ const TrackProgress = () => {
 
 	return (
 		<div>
-			<Navbar />
-			<BackButton />
+			<BackNav />
 			<div className="progress_box">
 				{!showTracker && (
-					<h1>Hello volunteer, below you can Enter Trainee Github Username</h1>
+					<h1>Hello CYF Admin!</h1>
 				)}
 				<div className="progress_container">
 					{showTracker ? (
 						<div className="tracker">
+
 							<h1>
-								Hello {username}, below is your current score as of{" "}
+								{username}'s current Progress as of{" "}
 								{new Date().toLocaleDateString()}
 							</h1>
+
 							<div className="tabcontainer">
 								<table className="tab">
 									<thead>
@@ -86,7 +86,9 @@ const TrackProgress = () => {
 									<tbody>
 										<tr>
 											<td>{entry?.total_count || "Loading..."}</td>
+
 											<td>{codewars[0] || "Loading..."}</td>
+
 										</tr>
 									</tbody>
 								</table>

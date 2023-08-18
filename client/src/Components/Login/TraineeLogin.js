@@ -1,12 +1,11 @@
 
 import React from "react";
-import Navbar from "../Navbar/Navbar";
+import BackNav from "../Navbar/BackNav";
 import Footer from "../Footer/Footer";
 import "./TraineeLogin.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useState, useEffect } from "react";
 import TraineeTracker from "../Trainee Dashboard/TraineeTracker";
-import BackButton from "../BackButton/BackButton";
 
 const TraineeLogin = () => {
   const [username, setUsername] = useState("");
@@ -28,8 +27,7 @@ if(show) {
 
   return (
     <div>
-      <Navbar />
-      <BackButton />
+      <BackNav />
       <div className='trainee-login-container'>
         <div className="sign">
             <div className="github">

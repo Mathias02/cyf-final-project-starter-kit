@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import "./TraineeTracker.css";
 import TrackerTable from "./TrackerTable";
-import BackButton from "../BackButton/BackButton";
+import BackNav from "../Navbar/BackNav";
 
 const TraineeTracker = ({ user }) => {
 
@@ -42,8 +41,7 @@ const [cohort, setCohort] = useState([]);
 
     return(
         <div className='tracker'>
-            <Navbar />
-            <BackButton />
+            <BackNav />
             <h1>Hello {user}, below is your current score as of  {new Date().toLocaleDateString()}</h1>
             <div className='tabcontainer'>
                 <table className='tab'>
