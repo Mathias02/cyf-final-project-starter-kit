@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import BackNav from "../Navbar/BackNav";
 import Footer from "../Footer/Footer";
 import "./TrackProgress.css";
-import TrackerTable from "../Trainee Dashboard/TrackerTable";
 import AdminTrackerTable from "./Tracker Form/AdminTrackerTable";
 
 const TrackProgress = () => {
@@ -94,7 +93,7 @@ const TrackProgress = () => {
 									</tbody>
 								</table>
 							</div>
-							<h2>Your PRs in Cohort Repositories:</h2>
+
 							<div className="cohort-container">
 								{cohort.map((item) => (
 									<div key={item.id} className="cohort-item">
@@ -102,7 +101,7 @@ const TrackProgress = () => {
 									</div>
 								))}
 							</div>
-							<TrackerTable /> {/* Render the TrackerTable component */}
+
 						</div>
 					) : (
 						<form className="trainee_form" onSubmit={handleSubmit}>
