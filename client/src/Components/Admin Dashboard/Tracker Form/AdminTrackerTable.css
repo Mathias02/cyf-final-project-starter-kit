@@ -13,7 +13,7 @@
         border-radius: 6px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         background-color: #fff;
-        margin-left: 20px; 
+        margin-left: 20px;
     }
 
     .milestone-form h2 {
@@ -22,10 +22,9 @@
     }
 
     .milestone-form label {
-        display: grid;
-        grid-row: ;
+        font-size:medium;
         margin-bottom: 6px;
-        font-weight: bold;
+        font-weight:bold;
     }
 
     .milestone-form select,
