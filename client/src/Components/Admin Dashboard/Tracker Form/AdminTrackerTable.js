@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from 'moment';
@@ -18,6 +19,10 @@ const AdminTrackerTable = () => {
     const [editedCodewars, setEditedCodewars] = useState("");
     const [editedCohort, setEditedCohort] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
+
+    // Define the available cohorts and milestones
+    const cohorts = ["Cohort A", "Cohort B", "Cohort C"]; // Update with actual cohorts
+    const milestones = ["Milestone 1", "Milestone 2", "Milestone 3"];
 
     useEffect(() => {
         fetchProgressData();
@@ -122,7 +127,12 @@ const AdminTrackerTable = () => {
                 {/* FORM TO INSERT NEW MILESTONES */}
                 <form onSubmit={handleSubmit}>
                     <label>Milestones:</label>
-                    <input type="text" name="milestones" value={formData.milestones} onChange={handleChange} /><br />
+                    <select name="milestones" value={formData.milestones} onChange={handleChange}>
+                        <option value="">Select a milestone</option>
+                        {milestones.map((milestone) => (
+                            <option key={milestone} value={milestone}>{milestone}</option>
+                        ))}
+                    </select><br />
 
                     <label>Date:</label>
                     <input type="date" name="date" value={formData.date} onChange={handleChange} /><br />
@@ -134,7 +144,12 @@ const AdminTrackerTable = () => {
                     <input type="number" name="codewars" value={formData.codewars} onChange={handleChange} /><br />
 
                     <label>Cohort:</label>
-                    <input type="text" name="cohort" value={formData.cohort} onChange={handleChange} /><br />
+                    <select name="cohort" value={formData.cohort} onChange={handleChange}>
+                        <option value="">Select a cohort</option>
+                        {cohorts.map((cohort) => (
+                            <option key={cohort} value={cohort}>{cohort}</option>
+                        ))}
+                    </select><br />
 
                     <button type="submit">Insert</button>
                 </form>
