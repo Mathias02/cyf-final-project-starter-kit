@@ -41,7 +41,7 @@ const [cohort, setCohort] = useState([]);
         <div className='tracker'>
             <Navbar />
             <BackButton />
-            <h1>Hello {user}, below is your tracked score</h1>
+            <h1>Hello {user}, below is your current score as of  {new Date().toLocaleDateString()}</h1>
             <div className='tabcontainer'>
                 <table className='tab'>
                     <thead>
