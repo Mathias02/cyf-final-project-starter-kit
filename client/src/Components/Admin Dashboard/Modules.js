@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import moment from 'moment';
+import moment from "moment";
 import "./modules.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import BackButton from "../BackButton/BackButton";
 
 const Modules = () => {
   // STATE
@@ -26,19 +27,19 @@ const Modules = () => {
   const insertModule = async (event) => {
     event.preventDefault();
     try {
-      const formattedStartDate = moment(startDate).format('YYYY-MM-DD');
-      const formattedEndDate = moment(endDate).format('YYYY-MM-DD');
+      const formattedStartDate = moment(startDate).format("YYYY-MM-DD");
+      const formattedEndDate = moment(endDate).format("YYYY-MM-DD");
 
-      const response = await axios.post('/api/insert', {
+      const response = await axios.post("/api/insert", {
         moduleName: moduleName,
         startDate: formattedStartDate,
         endDate: formattedEndDate,
         cohort: cohortName,
       });
-      console.log('Data inserted successfully!', response.data);
+      console.log("Data inserted successfully!", response.data);
       fetchModules(); // Fetch modules again after insertion
     } catch (error) {
-      console.error('Error inserting data:', error);
+      console.error("Error inserting data:", error);
     }
   };
 
@@ -50,11 +51,11 @@ const Modules = () => {
 
   const fetchModules = async () => {
     try {
-      const response = await axios.get('/api/get');
+      const response = await axios.get("/api/get");
       setModules(response.data);
       setFilteredModules(response.data);
     } catch (error) {
-      console.error('Error fetching modules:', error);
+      console.error("Error fetching modules:", error);
     }
   };
 
@@ -64,7 +65,7 @@ const Modules = () => {
       await axios.delete(`/api/delete/${moduleId}`);
       fetchModules(); // Fetch modules again after deletion
     } catch (error) {
-      console.error('Error deleting module:', error);
+      console.error("Error deleting module:", error);
     }
   };
 
@@ -77,15 +78,15 @@ const Modules = () => {
     try {
       const updatedModule = {
         moduleName: editedModuleName,
-        startDate: moment(editedStartDate).format('YYYY-MM-DD'),
-        endDate: moment(editedEndDate).format('YYYY-MM-DD'),
+        startDate: moment(editedStartDate).format("YYYY-MM-DD"),
+        endDate: moment(editedEndDate).format("YYYY-MM-DD"),
         cohort: editedCohortName,
       };
       await axios.put(`/api/update/${moduleId}`, updatedModule);
       setEditingModuleId(null);
       fetchModules(); // Fetch modules again after updating
     } catch (error) {
-      console.error('Error updating module:', error);
+      console.error("Error updating module:", error);
     }
   };
 
@@ -112,10 +113,11 @@ const Modules = () => {
   return (
     <div>
       <Navbar />
-      <div className="container" style={{ textAlign: 'left', marginRight: '30px' }}>
-        <h3 style={{ marginBottom: '60px' }}>Hello Admin, below you can update modules!</h3>
+      <BackButton />
+      <div className="container" style={{ textAlign: "left", marginRight: "30px" }}>
+        <h3 style={{ marginBottom: "60px" }}>Hello Admin, below you can update modules!</h3>
         <div className='form'>
-        <div className='form' style={{ textAlign: 'left' }}>
+        <div className='form' style={{ textAlign: "left" }}>
           <form onSubmit={insertModule}>
           <h6>Enter new module:</h6>
             <input type='text' placeholder='Enter Module Name' name='moduleName' onChange={(e) => {
@@ -189,7 +191,7 @@ const Modules = () => {
                         onChange={(e) => setEditedStartDate(e.target.value)}
                       />
                     ) : (
-                      moment(module.startdate).format('YYYY-MM-DD')
+                      moment(module.startdate).format("YYYY-MM-DD")
                     )}
                   </td>
                   <td>
@@ -200,7 +202,7 @@ const Modules = () => {
                         onChange={(e) => setEditedEndDate(e.target.value)}
                       />
                     ) : (
-                      moment(module.enddate).format('YYYY-MM-DD')
+                      moment(module.enddate).format("YYYY-MM-DD")
                     )}
                   </td>
                   <td>

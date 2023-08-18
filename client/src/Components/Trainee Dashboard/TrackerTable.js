@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./TraineeTracker.css";
+import BackButton from "../BackButton/BackButton";
 
 const TrackerTable = () => {
     const [cohortFilter, setCohortFilter] = useState("");
@@ -9,7 +10,7 @@ const TrackerTable = () => {
     const handleCohortFilter = () => {
         axios.get("/api/traineeProgress")
             .then((response) => {
-                const filtered = response.data.filter(entry =>
+                const filtered = response.data.filter((entry) =>
                     entry.cohort.toLowerCase() === cohortFilter.toLowerCase()
                 );
                 setFilteredData(filtered);
@@ -21,6 +22,7 @@ const TrackerTable = () => {
 
     return (
         <div>
+            <BackButton />
             <div className="filter-container">
                 <input
                     type="text"
