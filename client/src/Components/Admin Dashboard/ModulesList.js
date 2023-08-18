@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../Navbar/Navbar";
+import BackNav from "../Navbar/BackNav";
 import Footer from "../Footer/Footer";
 import moment from "moment";
 import "./modules.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import ModulesListTable from "./ModulesList";
-import BackButton from "../BackButton/BackButton";
 
 const Modules = () => {
   // STATE
@@ -91,8 +90,7 @@ const Modules = () => {
 
   return (
     <div>
-      <Navbar />
-      <BackButton />
+      <BackNav />
       <h3>Hello Admin, below you can update modules</h3>
       <div className='form'>
         <form onSubmit={insertModule}>

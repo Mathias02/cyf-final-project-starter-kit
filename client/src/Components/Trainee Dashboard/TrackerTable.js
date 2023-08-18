@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./TraineeTracker.css";
-import BackButton from "../BackButton/BackButton";
+
 
 const TrackerTable = () => {
     const [cohortFilter, setCohortFilter] = useState("");
@@ -27,7 +27,6 @@ const TrackerTable = () => {
 
     return (
         <div>
-            <BackButton />
             <div className="filter-container">
                 <input
                     type="text"

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Navbar from "../Navbar/Navbar";
+import BackNav from "../Navbar/BackNav";
 import Footer from "../Footer/Footer";
 import "./TrackProgress.css";
 import AdminTrackerTable from "./Tracker Form/AdminTrackerTable";
-import BackButton from "../BackButton/BackButton";
+
 
 const TrackProgress = () => {
 
@@ -46,8 +46,7 @@ const TrackProgress = () => {
 
 	return (
 		<div>
-			<Navbar />
-			<BackButton />
+			<BackNav />
 			<div className="progress_box">
 				{!showTracker && (
 					<h1>Hello CYF Admin!</h1>

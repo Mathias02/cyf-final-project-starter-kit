@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "./AdminLogin.css";
-import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
-import BackButton from "../BackButton/BackButton";
+import BackNav from "../Navbar/BackNav";
 
 const AdminLogin = () => {
 
@@ -31,8 +30,7 @@ const AdminLogin = () => {
 
   return (
 		<div>
-			<Navbar />
-			<BackButton />
+			<BackNav />
 			<div className="signin-form-container">
 				<form className="signin-form" onSubmit={handleSubmit}>
 
