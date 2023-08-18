@@ -6,6 +6,7 @@ import AdminTrackerTable from "./Tracker Form/AdminTrackerTable";
 import BackButton from "../BackButton/BackButton";
 
 const TrackProgress = () => {
+
 	const [username, setUsername] = useState("");
 	const [entry, setEntry] = useState({});
 	const [codewars, setCodewars] = useState({});
@@ -97,6 +98,7 @@ const TrackProgress = () => {
 			<Footer />
 		</div>
 	);
+
 };
 
 export default TrackProgress;
