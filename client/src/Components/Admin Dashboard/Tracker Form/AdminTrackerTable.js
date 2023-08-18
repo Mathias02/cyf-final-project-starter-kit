@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from 'moment';
+import "./AdminTrackerTable.css";
 
 const AdminTrackerTable = () => {
     const [progressData, setProgressData] = useState([]);
@@ -121,39 +122,8 @@ const AdminTrackerTable = () => {
     }, [searchTerm]);
 
     return (
-        <div>
-            <div>
-                <h2>Insert new milestone for database</h2>
-                {/* FORM TO INSERT NEW MILESTONES */}
-                <form onSubmit={handleSubmit}>
-                    <label>Milestones:</label>
-                    <select name="milestones" value={formData.milestones} onChange={handleChange}>
-                        <option value="">Select a milestone</option>
-                        {milestones.map((milestone) => (
-                            <option key={milestone} value={milestone}>{milestone}</option>
-                        ))}
-                    </select><br />
 
-                    <label>Date:</label>
-                    <input type="date" name="date" value={formData.date} onChange={handleChange} /><br />
-
-                    <label>Required Pull Requests:</label>
-                    <input type="number" name="required_pull_requests" value={formData.required_pull_requests} onChange={handleChange} /><br />
-
-                    <label>Codewars:</label>
-                    <input type="number" name="codewars" value={formData.codewars} onChange={handleChange} /><br />
-
-                    <label>Cohort:</label>
-                    <select name="cohort" value={formData.cohort} onChange={handleChange}>
-                        <option value="">Select a cohort</option>
-                        {cohorts.map((cohort) => (
-                            <option key={cohort} value={cohort}>{cohort}</option>
-                        ))}
-                    </select><br />
-
-                    <button type="submit">Insert</button>
-                </form>
-            </div>
+        <div className="admin-container">
 
             <div className="filter-container">
                 <input
@@ -164,6 +134,10 @@ const AdminTrackerTable = () => {
                 />
                 <button onClick={handleFilterByCohort}>Filter</button>
                 <button onClick={handleResetFilter}>Reset Filter</button>
+            </div>
+
+            <div>
+            <h5>To edit milestones, click on table</h5>
             </div>
 
             <div className="trainee-tracker-container">
@@ -275,6 +249,41 @@ const AdminTrackerTable = () => {
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            {/* ENTER NEW MILESTONE FORM */}
+
+            <div>
+                {/* FORM TO INSERT NEW MILESTONES */}
+                <form onSubmit={handleSubmit} className="milestone-form">
+                    <label>Insert New Milestone:</label>
+                    <select name="milestones" value={formData.milestones} onChange={handleChange}>
+                        <option value="">Select a milestone</option>
+                        {milestones.map((milestone) => (
+                            <option key={milestone} value={milestone}>{milestone}</option>
+                        ))}
+                    </select><br />
+
+                    <label>Date:</label>
+                    <input type="date" name="date" value={formData.date} onChange={handleChange} /><br />
+
+                    <label>Required Pull Requests:</label>
+                    <input type="number" name="required_pull_requests" value={formData.required_pull_requests} onChange={handleChange} /><br />
+
+                    <label>Codewars:</label>
+                    <input type="number" name="codewars" value={formData.codewars} onChange={handleChange} /><br />
+
+                    <label>Cohort:</label>
+                    <select name="cohort" value={formData.cohort} onChange={handleChange}>
+                        <option value="">Select a cohort</option>
+                        {cohorts.map((cohort) => (
+                            <option key={cohort} value={cohort}>{cohort}</option>
+                        ))}
+
+                    </select><br />
+
+                    <button type="submit">Insert</button>
+                </form>
             </div>
         </div>
     );

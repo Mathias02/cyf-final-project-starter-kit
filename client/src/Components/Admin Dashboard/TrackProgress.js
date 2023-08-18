@@ -34,7 +34,7 @@ const TrackProgress = () => {
 				`https://www.codewars.com/api/v1/users/${username}`
 			);
 			const codewarsData = await codewarsResponse.json();
-			setCodewars(codewarsData);
+			setCodewars(Object.values(codewarsData.ranks));
 		} catch (error) {
 			console.error("Error fetching CodeWars data:", error);
 		}
@@ -50,12 +50,12 @@ const TrackProgress = () => {
 			<BackButton />
 			<div className="progress_box">
 				{!showTracker && (
-					<h1>Hello volunteer, below you can Enter Trainee Github Username</h1>
+					<h1>Hello CYF Admin!</h1>
 				)}
 				<div className="progress_container">
 					{showTracker ? (
 						<div className="tracker">
-							<h1>Hello volunteer Below is {username} Tracked Progress</h1>
+							<h1>{username}'s current Progress</h1>
 							<div className="tabcontainer">
 								<table className="tab">
 									<thead>
@@ -68,6 +68,8 @@ const TrackProgress = () => {
 										<tr>
 											<td>{entry?.total_count || "Loading..."}</td>
 											<td>{codewars?.honor || "Loading..."}</td>
+											<td key={codewars.rank}>{codewars?.rank}</td>
+
 										</tr>
 									</tbody>
 								</table>
