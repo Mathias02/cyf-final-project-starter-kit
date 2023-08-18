@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import moment from 'moment';
+import moment from "moment";
 import "./modules.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import ModulesListTable from "./ModulesList";
+import BackButton from "../BackButton/BackButton";
 
 const Modules = () => {
   // STATE
@@ -21,23 +22,24 @@ const Modules = () => {
   const [editedCohortName, setEditedCohortName] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
+
   // SUBMIT FUNCTION
   const insertModule = async (event) => {
     event.preventDefault();
     try {
-      const formattedStartDate = moment(startDate).format('YYYY-MM-DD');
-      const formattedEndDate = moment(endDate).format('YYYY-MM-DD');
+      const formattedStartDate = moment(startDate).format("YYYY-MM-DD");
+      const formattedEndDate = moment(endDate).format("YYYY-MM-DD");
 
-      const response = await axios.post('/api/insert', {
+      const response = await axios.post("/api/insert", {
         moduleName: moduleName,
         startDate: formattedStartDate,
         endDate: formattedEndDate,
         cohort: cohortName,
       });
-      console.log('Data inserted successfully!', response.data);
+      console.log("Data inserted successfully!", response.data);
       fetchModules(); // Fetch modules again after insertion
     } catch (error) {
-      console.error('Error inserting data:', error);
+      console.error("Error inserting data:", error);
     }
   };
 
@@ -49,10 +51,10 @@ const Modules = () => {
 
   const fetchModules = async () => {
     try {
-      const response = await axios.get('/api/get');
+      const response = await axios.get("/api/get");
       setModules(response.data);
     } catch (error) {
-      console.error('Error fetching modules:', error);
+      console.error("Error fetching modules:", error);
     }
   };
 
@@ -62,7 +64,7 @@ const Modules = () => {
       await axios.delete(`/api/delete/${moduleId}`);
       fetchModules(); // Fetch modules again after deletion
     } catch (error) {
-      console.error('Error deleting module:', error);
+      console.error("Error deleting module:", error);
     }
   };
 
@@ -75,21 +77,22 @@ const Modules = () => {
     try {
       const updatedModule = {
         moduleName: editedModuleName,
-        startDate: moment(editedStartDate).format('YYYY-MM-DD'),
-        endDate: moment(editedEndDate).format('YYYY-MM-DD'),
+        startDate: moment(editedStartDate).format("YYYY-MM-DD"),
+        endDate: moment(editedEndDate).format("YYYY-MM-DD"),
         cohort: editedCohortName,
       };
       await axios.put(`/api/update/${moduleId}`, updatedModule);
       setEditingModuleId(null);
       fetchModules(); // Fetch modules again after updating
     } catch (error) {
-      console.error('Error updating module:', error);
+      console.error("Error updating module:", error);
     }
   };
 
   return (
     <div>
       <Navbar />
+      <BackButton />
       <h3>Hello Admin, below you can update modules</h3>
       <div className='form'>
         <form onSubmit={insertModule}>
@@ -108,7 +111,7 @@ const Modules = () => {
           <button type='submit'>Submit</button>
         </form>
       </div>
-      <div style={{ margin: 'auto', width: '80%' }}>
+      <div style={{ margin: "auto", width: "80%" }}>
         <h2>Modules List</h2>
         <table className="table">
           <thead>
@@ -142,7 +145,7 @@ const Modules = () => {
                       onChange={(e) => setEditedStartDate(e.target.value)}
                     />
                   ) : (
-                    moment(module.startdate).format('YYYY-MM-DD')
+                    moment(module.startdate).format("YYYY-MM-DD")
                   )}
                 </td>
                 <td>
@@ -153,7 +156,7 @@ const Modules = () => {
                       onChange={(e) => setEditedEndDate(e.target.value)}
                     />
                   ) : (
-                    moment(module.enddate).format('YYYY-MM-DD')
+                    moment(module.enddate).format("YYYY-MM-DD")
                   )}
                 </td>
                 <td>

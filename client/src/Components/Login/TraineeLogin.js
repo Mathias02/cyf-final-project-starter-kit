@@ -1,11 +1,12 @@
 
-import React from 'react';
-import Navbar from '../Navbar/Navbar';
-import Footer from '../Footer/Footer';
-import './TraineeLogin.css'
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useState, useEffect} from 'react';
-import TraineeTracker from '../Trainee Dashboard/TraineeTracker';
+import React from "react";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
+import "./TraineeLogin.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import { useState, useEffect } from "react";
+import TraineeTracker from "../Trainee Dashboard/TraineeTracker";
+import BackButton from "../BackButton/BackButton";
 
 const TraineeLogin = () => {
   const [username, setUsername] = useState("");
@@ -14,20 +15,21 @@ const TraineeLogin = () => {
 
 
 const inputSubmit = (e) =>{
-    e.preventDefault()
-    setShow(true)
-    setUsername(username)
-}
+    e.preventDefault();
+    setShow(true);
+    setUsername(username);
+};
 
 if(show) {
   return(
-    <TraineeTracker  user={username}/>
-  ) 
+    <TraineeTracker  user={username} />
+  );
 }
 
   return (
     <div>
       <Navbar />
+      <BackButton />
       <div className='trainee-login-container'>
         <div className="sign">
             <div className="github">
@@ -37,7 +39,7 @@ if(show) {
             <form className="user_name" onSubmit={inputSubmit}>
                 <input type="text" name='user' value={username} onChange={(e) =>setUsername(e.target.value)} className='user' placeholder='GitHub username' required />
                 <input type="submit" className='btn-submit' value="submit" />
-            </form>   
+            </form>
         </div>
       </div>
       <Footer />

@@ -3,6 +3,7 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import "./TraineeTracker.css";
 import TrackerTable from "./TrackerTable";
+import BackButton from "../BackButton/BackButton";
 
 const TraineeTracker = ({ user }) => {
 
@@ -41,8 +42,9 @@ const [cohort, setCohort] = useState([]);
 
     return(
         <div className='tracker'>
-        <Navbar />
-            <h1>Hello {user}, below is your tracked score</h1>
+            <Navbar />
+            <BackButton />
+            <h1>Hello {user}, below is your current score as of  {new Date().toLocaleDateString()}</h1>
             <div className='tabcontainer'>
                 <table className='tab'>
                     <thead>
