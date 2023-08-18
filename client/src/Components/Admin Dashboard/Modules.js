@@ -1,12 +1,11 @@
 /* Modules.js */
 import React, { useState, useEffect } from "react";
-import Navbar from "../Navbar/Navbar";
+import BackNav from "../Navbar/BackNav";
 import Footer from "../Footer/Footer";
 import moment from "moment";
 import "./Modules.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import BackButton from "../BackButton/BackButton";
 
 const Modules = () => {
   // STATE
@@ -112,8 +111,7 @@ const Modules = () => {
 
   return (
     <div>
-      <Navbar />
-      <BackButton />
+      <BackNav />
       <div className="container" style={{ textAlign: "left", marginRight: "30px" }}>
         <h3 style={{ marginBottom: "60px" }}>Hello Admin, below you can update modules!</h3>
         <div className='form'>

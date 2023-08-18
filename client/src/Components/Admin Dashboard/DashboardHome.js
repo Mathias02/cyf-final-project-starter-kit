@@ -1,17 +1,15 @@
 
 import React from "react";
-import Navbar from "../Navbar/Navbar";
+import BackNav from "../Navbar/BackNav";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import "./DashboardHome.css";
-import BackButton from "../BackButton/BackButton";
 
 
 const DashboardHome = () => {
   return (
 <div>
-      <Navbar />
-      <BackButton />
+      <BackNav />
 
 <div className='adminBtn'>
       <button className="btnlogin">
