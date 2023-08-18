@@ -6,14 +6,14 @@
 
 
     .milestone-form {
-        max-width: 300px; /* Adjust the width as needed */
+        max-width: 300px;
         margin: 0 auto;
         padding: 10px 50px 10px 50px;
         border: 1px solid #ccc;
         border-radius: 6px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         background-color: #fff;
-        margin-left: 20px; /* Adjust the left margin as needed */
+        margin-left: 20px; 
     }
 
     .milestone-form h2 {
@@ -39,7 +39,7 @@
     }
 
     .milestone-form button[type="submit"] {
-        background-color: #007bff;
+        background-color: #d33a3a;
         color: #fff;
         padding: 8px 16px;
         border: none;
@@ -49,6 +49,6 @@
     }
 
     .milestone-form button[type="submit"]:hover {
-        background-color: #0056b3;
+        background-color: #d33a3a;
     }
 
