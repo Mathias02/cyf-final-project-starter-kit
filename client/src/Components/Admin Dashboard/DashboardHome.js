@@ -23,9 +23,9 @@ const DashboardHome = () => {
 <div className='adminbody'>
       <div className='admindiv'>
         {/* Use absolute paths starting with a forward slash */}
-        <Link to="/update-modules">
+        {/* <Link to="/update-modules">
           <button className='adminbodybtn' >Update Modules</button>
-        </Link>
+        </Link> */}
         <Link to="/track-trainee-progress">
           <button>Track Trainee Progress</button>
         </Link>
