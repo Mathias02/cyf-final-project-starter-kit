@@ -35,7 +35,7 @@ const TrackProgress = () => {
 			fetch(`https://www.codewars.com/api/v1/users/${username}`)
 				.then((res) => res.json())
 				.then((data) => {
-					setCodewars([data.ranks.overall.rank]);
+					setCodewars([data.ranks.overall.name]);
 				});
 
 			// Fetch cohort data
